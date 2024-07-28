@@ -1,0 +1,39 @@
+#pragma once
+#include <CoreDefine.h>
+#include <SceneComponent.h>
+
+namespace Engine
+{
+	class RenderComponent abstract : public SceneComponent
+	{
+	protected:
+		explicit RenderComponent() = default;
+		virtual ~RenderComponent() = default;
+
+	public:
+		virtual void Render(_RenderTarget pRenderTarget) abstract;
+
+	public:
+		void AddRenderQueueInLayer();
+		void RemoveRenderQueueInLayer();
+		void SetOrder(int order) { _order = order; }
+		int GetOrder() const { return _order; }
+		void SetVisible(bool isVisible) { _isVisible = isVisible; }
+		bool IsVisible() const { return _isVisible; }
+		void SetCameraMatrix(const Mathf::Matx3F& cameraMatrix);
+
+	public:
+		bool operator>(const RenderComponent& rhs) { return _order > rhs._order; };
+		bool operator<(const RenderComponent& rhs) { return _order < rhs._order; };
+
+	protected:
+		virtual bool InitializeComponent() { return true; }
+		virtual void Destroy() override abstract;
+
+	protected:
+		Mathf::Matx3F _renderMatrix{};
+		Mathf::Matx3F _cameraMatrix{ Matx::Identity };
+		bool _isVisible{ true };
+		int  _order{ 0 };
+	};
+}
