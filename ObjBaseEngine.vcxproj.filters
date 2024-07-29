@@ -64,9 +64,6 @@
     <Filter Include="Engine\Utility\Random">
       <UniqueIdentifier>{76dc01e4-fc9f-4a94-b8ab-fb108a16bfcb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Utility\RigidBody">
-      <UniqueIdentifier>{4972744c-270a-4478-83dc-96a5c6cddb49}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Utility\Singleton">
       <UniqueIdentifier>{30c7673f-e72e-458a-96a6-b349fd155886}</UniqueIdentifier>
     </Filter>
@@ -214,8 +211,20 @@
     <Filter Include="Engine\Utility\ThirdParty\json">
       <UniqueIdentifier>{5310dc04-97bc-4968-813f-689069d6c756}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\BaseClass\Actor\Pawn">
-      <UniqueIdentifier>{de5d5c96-b83a-40d0-8a2b-3285046cfa47}</UniqueIdentifier>
+    <Filter Include="Engine\Utility\IniFileLoader">
+      <UniqueIdentifier>{9a77087a-773f-4f2c-83c4-fefdb18427b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Components\SceneComponents\CollisionComponent\SphereComponent">
+      <UniqueIdentifier>{50d90b52-a828-4e9a-b58b-ffcc903d1823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Components\SceneComponents\CollisionComponent\OBBComponent">
+      <UniqueIdentifier>{14baa43b-febb-44ff-84a9-3bbef1b2f7e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Components\ActorComponents\RigidBodyComponent">
+      <UniqueIdentifier>{4972744c-270a-4478-83dc-96a5c6cddb49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Components\SceneComponents\CollisionComponent\RayCastComponent">
+      <UniqueIdentifier>{79b66000-c26a-4a43-b289-74eec874bb72}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -381,6 +390,21 @@
     <ClInclude Include="ThirdParty\json.hpp">
       <Filter>Engine\Utility\ThirdParty\json</Filter>
     </ClInclude>
+    <ClInclude Include="Header\CollisionManager.h">
+      <Filter>Engine\Managers\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\SimpleIniLoader.h">
+      <Filter>Engine\Utility\IniFileLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Random.h">
+      <Filter>Engine\Utility\Random</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\BoxComponent.h">
+      <Filter>Engine\Components\SceneComponents\CollisionComponent\BoxComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RigidBodyComponent.h">
+      <Filter>Engine\Components\ActorComponents\RigidBodyComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\MainEntry.cpp">
@@ -475,6 +499,18 @@
     </ClCompile>
     <ClCompile Include="Src\StateMachine.cpp">
       <Filter>Engine\BaseClass\StateMachine\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\InputMapping.cpp">
+      <Filter>Engine\BaseClass\InputMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CollisionManager.cpp">
+      <Filter>Engine\Managers\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RigidBodyComponent.cpp">
+      <Filter>Engine\Components\ActorComponents\RigidBodyComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\BoxComponent.cpp">
+      <Filter>Engine\Components\SceneComponents\CollisionComponent\BoxComponent</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

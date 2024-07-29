@@ -8,7 +8,7 @@ void Engine::Actor::BeginPlay()
 {
 	Object::CreateObjectDirectory();
 
-	string convertName = this->_name;
+	string convertName = (string)"Assets/" + this->_name;
 
 	_vecTextures.push_back(TextureMgr->FindTexture(convertName));
 }

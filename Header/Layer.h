@@ -22,7 +22,7 @@ namespace Engine
 
 	public:
 		static Layer* InitializeLayer(int index);
-		void SettingCamera(CameraActor* pCameraActor){ _pCameraActor = pCameraActor; }
+		void SettingLayerCamera(CameraActor* pCameraActor){ _pCameraActor = pCameraActor; }
 		void Destroy() override;
 
 	private:

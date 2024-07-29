@@ -104,15 +104,17 @@ void Engine::BitmapComponent::SetBitmapLocalTransform()
 
 bool Engine::BitmapComponent::InitializeComponent()
 {
-	if (!RenderComponent::InitializeComponent())	{ return false; }
-
-	_pCollision = ACollision::Create();
+	if (!_pCollision)
+	{
+		_pCollision = ACollision::Create();
+	}
 
     return true;
 }
 
 void Engine::BitmapComponent::Destroy()
 {
+	SafeDelete(_pCollision);
 }
 
 Engine::BitmapComponent* Engine::BitmapComponent::Create()

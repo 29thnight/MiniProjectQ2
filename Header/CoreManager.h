@@ -43,6 +43,10 @@ namespace Engine
 		void RemoveRenderQueue(int layerIndex, RenderComponent* pRenderComponent);
 
 	public:
+		void AddCollisionQueue(int layerIndex, CollisionComponent* pCollsionComponent);
+		void RemoveCollisionQueue(int layerIndex, CollisionComponent* pCollsionComponent);
+
+	public:
 		ReadOnly_Property(GameSettings, setting)
 		_Get(setting)
 		{
@@ -71,9 +75,11 @@ namespace Engine
 				_renderTarget = value;
 		}
 
-
 	private:
 		void Destroy() override;
+
+	private:
+		CollisionManager* _pCollisionManager{ nullptr };
 
 	private:
 		IWICImagingFactory*	_pWICFactory{};

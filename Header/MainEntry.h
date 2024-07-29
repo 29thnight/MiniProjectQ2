@@ -18,6 +18,7 @@ namespace Engine
 		virtual void CreateWorld() abstract; //클라이언트에서 월드의 생성을 강제하기 위한 함수
 		World* ContainWorld() const { return _pWorld; }
 
+		bool LoadGameSettings(const std::string& iniPath, GameSettings& settings);
 		void Initialize(GameSettings gameSettings);
 		void MainLoop();
 		void Terminate();

@@ -4,11 +4,12 @@
 #include <Mathf.h>
 #include <IColliderReceiver.h>
 #include <ObjectPtr.h>
+#include <ISetupInputComponent.h>
 
 namespace Engine
 {
 	CORECLASS()
-	class Actor abstract : public Object, public IColliderReceiver
+	class Actor abstract : public Object, public IColliderReceiver, public ISetupInputComponent
 	{
 	protected:
 		explicit Actor() = default;
@@ -22,6 +23,7 @@ namespace Engine
 		virtual void NotifyActorBlock(CollisionData data) override {};
 		virtual void NotifyActorBeginOverlap(CollisionData data) override {};
 		virtual void NotifyActorEndOverlap(CollisionData data) override {};
+		virtual void SetupInputComponent(InputComponent* inputComponent) override {};
 		virtual void ReviveInitialize() {};
 
 	public:
@@ -41,9 +43,9 @@ namespace Engine
 				SceneComponent* pSceneComponent = dynamic_cast<SceneComponent*>(pComponent);
 				pSceneComponent->AttachToComponent(_pRootComponent);
 			}
-
+			pComponent->InitializeComponent();
 			ObjectPtr<ActorComponent> pComponentPtr(pComponent);
-			_vecComponents.push_back(pComponentPtr);
+			_vecComponents.push_back(std::move(pComponentPtr));
 			return pComponent;
 		}
 
@@ -53,7 +55,7 @@ namespace Engine
 			for (auto& component : _vecComponents)
 			{
 				if (!strcmp(component->GetName(),name))
-					return static_cast<T*>(component.Get());
+					return dynamic_cast<T*>(component.Get());
 			}
 			return nullptr;
 		}

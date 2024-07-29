@@ -32,6 +32,7 @@ bool Engine::CameraComponent::InitializeComponent()
 
 void Engine::CameraComponent::Destroy()
 {
+	SafeDelete(_pCollision);
 }
 
 Engine::CameraComponent* Engine::CameraComponent::Create()

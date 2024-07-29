@@ -1,9 +1,35 @@
 #include <CoreDefine.h>
 #include <MainEntry.h>
 #include <System.h>
+#include <SimpleIniLoader.h>
+
+namespace fs = std::filesystem;
 
 constexpr int screenStartLeft = 10;
 constexpr int screenStartTop = 10;
+
+bool Engine::MainEntry::LoadGameSettings(const std::string& iniPath, GameSettings& settings)
+{
+	std::string absolutePath = fs::absolute(iniPath).string();
+    SimpleIniFile iniFile;
+    try
+    {
+        iniFile.Load(absolutePath);
+    }
+    catch (const std::runtime_error& e)
+    {
+        std::cerr << "Error loading INI file: " << e.what() << std::endl;
+        return false;
+    }
+
+    settings.title = (string)iniFile.GetValue("Settings", "title", "DefaultTitle").c_str();
+    settings.width = std::stoi(iniFile.GetValue("Settings", "width", "800"));
+    settings.height = std::stoi(iniFile.GetValue("Settings", "height", "600"));
+    settings.maxSoundGroup = std::stoi(iniFile.GetValue("Settings", "maxSoundGroup", "1"));
+    settings.layerSize = std::stoi(iniFile.GetValue("Settings", "layerSize", "5"));
+
+    return true;
+}
 
 void Engine::MainEntry::Initialize(GameSettings gameSettings)
 {

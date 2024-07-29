@@ -20,6 +20,7 @@ namespace Engine
 		virtual void TickComponent(_float deltaSeconds) override abstract;
 		virtual bool IsCollision(CollisionComponent* pOther) abstract;
 		virtual void Render(_RenderTarget pRenderTarget) override abstract; //for debug draw
+		virtual void Destroy() override;
 	
 	public:
 		void ProcessCollision();

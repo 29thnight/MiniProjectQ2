@@ -42,11 +42,13 @@ void Engine::InputManager::InputUpdate()
 
 void Engine::InputManager::RegisterComponent(_uint key, InputComponent* inputComponent)
 {
+	_buttonMappings.insert(key);
 	_bindKeyMap[key] = inputComponent;
 }
 
 void Engine::InputManager::UnRegisterComponent(_uint key, InputComponent* inputComponents)
 {
+	_buttonMappings.erase(key);
 	_bindKeyMap[key] = nullptr;
 }
 

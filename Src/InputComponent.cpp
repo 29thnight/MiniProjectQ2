@@ -1,6 +1,14 @@
 #include <CoreDefine.h>
 #include <InputManager.h>
 #include <InputComponent.h>
+#include <Actor.h>
+
+bool Engine::InputComponent::InitializeComponent()
+{
+	_owner->SetupInputComponent(this);
+
+	return true;
+}
 
 void Engine::InputComponent::TickComponent(_float deltaSeconds)
 {
@@ -20,15 +28,19 @@ void Engine::InputComponent::TickComponent(_float deltaSeconds)
 
 void Engine::InputComponent::OnInputReceived(const InputValue& value)
 {
-	//if (_owner->IsDestroyedMark())
-	//	return;
+	if (_owner->IsDestroyMarked())
+		return;
 
-	_inputEvents.back().timeToLastInput = elapsedTick;
+	if (!_inputEvents.empty())
+	{
+		_inputEvents.back().timeToLastInput = elapsedTick;
+	}
 
 	elapsedTick = 0.f;
 
 	_inputEvents.emplace_back(value);
 
+	if (_inputMapping)
 	_inputMapping->MappingContext(value);
 
 	if(_inputEvents.size() > 30)
@@ -40,6 +52,12 @@ void Engine::InputComponent::OnInputReceived(const InputValue& value)
 void Engine::InputComponent::BindKey(_uint key)
 {
 	_uniqueKey.emplace_back(std::make_pair(key, this));
+}
+
+void Engine::InputComponent::SetInputMapping(InputMapping* inputMapping)
+{
+	_inputMapping = inputMapping;
+	_inputMapping->SetInputComponent(this);
 }
 
 void Engine::InputComponent::AttachInputManager()
@@ -63,6 +81,9 @@ void Engine::InputComponent::SetVibration(_float leftMotor, _float rightMotor, _
 
 bool Engine::InputComponent::IsKeyPress(_uint key) const
 {
+	if (_inputEvents.empty())
+		return false;
+
 	return (_inputEvents.back().key == key && 
 			_inputEvents.back().type == InputType::PRESS &&
 			0.f == _inputEvents.back().timeToLastInput);
@@ -70,6 +91,9 @@ bool Engine::InputComponent::IsKeyPress(_uint key) const
 
 bool Engine::InputComponent::IsKeyHold(_uint key) const
 {
+	if (_inputEvents.empty())
+		return false;
+
 	return (_inputEvents.back().key == key && 
 			_inputEvents.back().type == InputType::HELD &&
 			0.f == _inputEvents.back().timeToLastInput);
@@ -77,6 +101,9 @@ bool Engine::InputComponent::IsKeyHold(_uint key) const
 
 bool Engine::InputComponent::IsKeyRelease(_uint key) const
 {
+	if (_inputEvents.empty())
+		return false;
+
 	return (_inputEvents.back().key == key && 
 			_inputEvents.back().type == InputType::RELEASE &&
 			0.f == _inputEvents.back().timeToLastInput);
@@ -157,6 +184,18 @@ bool Engine::InputComponent::IsKeyEventTriggeredLessTime(_uint key, InputType ty
 	}
 
 	return false;
+}
+
+void Engine::InputComponent::TriggerAction(IInputAction* action, TriggerEvent event, const InputActionValue& value)
+{
+	for (auto& [key, function] : _inputActions) 
+    {
+		std::tuple<IInputAction*, TriggerEvent, void*> key = key;
+        if (std::get<0>(key) == action && std::get<1>(key) == event)
+        {
+            function(value);
+        }
+    }
 }
 
 Engine::InputComponent* Engine::InputComponent::Create()

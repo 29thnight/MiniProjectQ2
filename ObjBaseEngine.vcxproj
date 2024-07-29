@@ -25,9 +25,11 @@
     <ClInclude Include="Header\AnimationComponent.h" />
     <ClInclude Include="Header\AssetManager.h" />
     <ClInclude Include="Header\BitmapComponent.h" />
+    <ClInclude Include="Header\BoxComponent.h" />
     <ClInclude Include="Header\CameraActor.h" />
     <ClInclude Include="Header\CameraComponent.h" />
     <ClInclude Include="Header\CollisionComponent.h" />
+    <ClInclude Include="Header\CollisionManager.h" />
     <ClInclude Include="Header\CoreBase.h" />
     <ClInclude Include="Header\CoreDefine.h" />
     <ClInclude Include="Header\CoreEnum.h" />
@@ -56,8 +58,11 @@
     <ClInclude Include="Header\MovementComponent.h" />
     <ClInclude Include="Header\Object.h" />
     <ClInclude Include="Header\ObjectPtr.h" />
+    <ClInclude Include="Header\Random.h" />
     <ClInclude Include="Header\RenderComponent.h" />
+    <ClInclude Include="Header\RigidBodyComponent.h" />
     <ClInclude Include="Header\SceneComponent.h" />
+    <ClInclude Include="Header\SimpleIniLoader.h" />
     <ClInclude Include="Header\Singleton.h" />
     <ClInclude Include="Header\SoundManager.h" />
     <ClInclude Include="Header\State.h" />
@@ -80,9 +85,13 @@
     <ClCompile Include="Src\AnimationComponent.cpp" />
     <ClCompile Include="Src\AssetManager.cpp" />
     <ClCompile Include="Src\BitmapComponent.cpp" />
+    <ClCompile Include="Src\BoxComponent.cpp" />
     <ClCompile Include="Src\CameraActor.cpp" />
     <ClCompile Include="Src\CameraComponent.cpp" />
     <ClCompile Include="Src\CollisionComponent.cpp" />
+    <ClCompile Include="Src\CollisionManager.cpp" />
+    <ClCompile Include="Src\InputMapping.cpp" />
+    <ClCompile Include="Src\RigidBodyComponent.cpp" />
     <ClCompile Include="Src\State.cpp" />
     <ClCompile Include="Src\CoreManager.cpp" />
     <ClCompile Include="Src\FontManager.cpp" />

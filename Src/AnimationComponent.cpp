@@ -3,6 +3,7 @@
 #include <Mathf.h>
 #include <Texture.h>
 #include <TextureManager.h>
+#include <ACollision.h>
 
 #undef min
 #undef max
@@ -145,6 +146,7 @@ bool Engine::AnimationComponent::InitializeComponent()
 
 void Engine::AnimationComponent::Destroy()
 {
+	SafeDelete(_pCollision);
 	_vecClips.clear();
 }
 

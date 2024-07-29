@@ -3,6 +3,7 @@
 #include <ActorComponent.h>
 #include <IOnInputReceived.h>
 #include <InputMapping.h>
+#include <ISetupInputComponent.h>
 
 namespace Engine
 {
@@ -15,20 +16,31 @@ namespace Engine
 
 	protected:
 		using BindFunction = std::function<void(const InputActionValue&)>;
-		using InputActions = std::unordered_map<const IInputAction*, std::unordered_map<TriggerEvent, std::pair<Object*,BindFunction>>>;
+		using InputActions = std::tuple<IInputAction*, TriggerEvent, void*>;
+		struct CompareInputKey
+		{
+			bool operator()(const InputActions& lhs, const InputActions& rhs) const
+			{
+				if (std::get<0>(lhs) != std::get<0>(rhs)) return std::get<0>(lhs) < std::get<0>(rhs);
+				if (std::get<1>(lhs) != std::get<1>(rhs)) return std::get<1>(lhs) < std::get<1>(rhs);
+				return std::get<2>(lhs) < std::get<2>(rhs);
+			}
+		};
+		using InputActionsMap = std::map<IInputAction*, BindFunction, CompareInputKey>;
 		using InputEvents = std::deque<InputValue>;
 		using MapUniqueKey = std::vector<std::pair<_uint,InputComponent*>>;
 
+
 	public:
-		virtual bool InitializeComponent() override { return true; }
-		virtual void BeginPlay() override {};
+		virtual bool InitializeComponent() override;
+		virtual void BeginPlay() override { };
 		virtual void TickComponent(_float deltaSeconds) override;
 		virtual void EndPlay() override {};
 		virtual void OnInputReceived(const InputValue& value) override;
 
 	public:
 		void BindKey(_uint key);
-		void SetInputMapping(InputMapping* inputMapping) { _inputMapping = inputMapping; }
+		void SetInputMapping(InputMapping* inputMapping);
 		void AttachInputManager();
 		void SetVibration(_float leftMotor, _float rightMotor, _float duration);
 
@@ -45,12 +57,23 @@ namespace Engine
 		bool IsKeyEventTriggeredLessTime(_uint key, InputType type, _float time) const;
 
 	public:
-		template<typename T, typename U>
-		void BindAction(const IInputAction*, TriggerEvent, T* Object, void (U::*method)(const InputActionValue&))
+		template<typename... _uint>
+		void BindKeys(_uint... keys)
 		{
-			BindFunction function = [Object, method](const InputActionValue& value) { (Object->*method)(value); };
-			_inputActions.emplace(IInputAction, TriggerEvent, Object, function);
+			(_uniqueKey.emplace_back(std::make_pair(keys, this)), ...);
 		}
+
+		template<typename T, typename U>
+		void BindAction(const IInputAction* action, TriggerEvent event, T* object, void (U::*method)(const InputActionValue&))
+		{
+			BindFunction function = [object, method](const InputActionValue& value)
+            {
+                (object->*method)(value);
+            };
+            _inputActions[std::make_tuple(action, event, static_cast<void*>(object))] = function;
+		}
+
+		void TriggerAction(IInputAction* action, TriggerEvent event, const InputActionValue& value);
 
 	public:
 		static InputComponent* Create();
@@ -59,7 +82,7 @@ namespace Engine
 		virtual void Destroy() override;
 
 	protected:
-		InputActions	_inputActions;
+		InputActionsMap	_inputActions;
 		InputEvents		_inputEvents;
 		MapUniqueKey	_uniqueKey;
 		InputMapping*	_inputMapping{ nullptr };

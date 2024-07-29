@@ -39,6 +39,7 @@ namespace Engine
 		T* AddLevel()
 		{
 			T* pLevel = T::Create();
+			pLevel->SetWorld(this);
 			ContainLevel(pLevel);
 			return pLevel;
 		}
@@ -89,6 +90,7 @@ namespace Engine
 		bool SpawnActor(int layerIndex, _pstring name, Actor* pActor);
 		bool SpawnActor(int layerIndex, _pstring name, Actor* pActor, Mathf::Vector2 location);
 		bool RemoveActor(_pstring name);
+		bool TerminateActor(_pstring name);
 		bool ReviveActor(_pstring name);
 
 	private:

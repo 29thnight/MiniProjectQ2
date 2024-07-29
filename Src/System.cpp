@@ -4,6 +4,7 @@
 #include <TextureManager.h>
 #include <FontManager.h>
 #include <InputManager.h>
+#include <World.h>
 #include <System.h>
 
 bool Engine::System::MainLoop()
@@ -35,7 +36,13 @@ bool Engine::System::Initialize(GameSettings&& gameSettings)
 	Graphics->Initialize();
 	InputMgr->Initialize();
 	TextureMgr->LoadTexture(L"Assets");
+	int layerSize = Management->setting.layerSize;
+	Management->setting.pWorld->InitializeWorld(layerSize);
+	Management->setting.pWorld->BeginPlay();
 
+#ifdef _DEBUG
+	Graphics->AddBrush("Red",D2D1::ColorF(D2D1::ColorF::Red));
+#endif // DEBUG
 
 	return true;
 }

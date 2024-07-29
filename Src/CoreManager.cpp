@@ -1,10 +1,12 @@
 #include <GraphicsManager.h>
 #include <CoreManager.h>
 #include <TimeManager.h>
+#include <InputManager.h>
 #include <World.h>
 #include <Object.h>
 #include <CoreBase.h>
 #include <Layer.h>
+#include <CollisionManager.h>
 
 Engine::CoreManager::CoreManager()
 {
@@ -12,13 +14,15 @@ Engine::CoreManager::CoreManager()
 
 void Engine::CoreManager::BeginPlay()
 {
-	setting.pWorld->BeginPlay();
+	_pCollisionManager = CollisionManager::Create();
 }
 
 void Engine::CoreManager::Tick()
 {
 	Time->UpdateTick();
+	InputMgr->InputUpdate();
 	setting.pWorld->Tick(Time->DeltaSeconds);
+
 	float deltaSeconds = Time->DeltaSeconds;
 }
 
@@ -36,6 +40,7 @@ void Engine::CoreManager::Fixed(int count)
 
 	if(_elapsedTick >= fixedTick)
 	{
+		_pCollisionManager->SimulateCollision();
 		setting.pWorld->Fixed();
 		_elapsedTick -= fixedTick;
 	}
@@ -59,15 +64,11 @@ void Engine::CoreManager::EndPlay()
 
 void Engine::CoreManager::DestroyPoint()
 {
-	if(setting.pWorld)
-		return;
-
 	for (auto& pObject : _toBeDestroyed)
 	{
-		SafeDelete(pObject);
+		if(pObject->IsCompleteDestroyMarked())
+			SafeDelete(pObject);
 	}
-
-	_toBeDestroyed.clear();
 }
 
 void Engine::CoreManager::Initialize(GameSettings&& gameSettings)
@@ -133,9 +134,26 @@ void Engine::CoreManager::RemoveRenderQueue(int layerIndex, RenderComponent* pRe
 	pLayer->RemoveRenderQueue(pRenderComponent);
 }
 
+void Engine::CoreManager::AddCollisionQueue(int layerIndex, CollisionComponent* pCollsionComponent)
+{
+	_pCollisionManager->AddCollisionQueue(layerIndex, pCollsionComponent);
+}
+
+void Engine::CoreManager::RemoveCollisionQueue(int layerIndex, CollisionComponent* pCollsionComponent)
+{
+	_pCollisionManager->RemoveCollisionQueue(layerIndex, pCollsionComponent);
+}
+
 void Engine::CoreManager::Destroy()
 {
+	for (auto& pObject : _toBeDestroyed)
+	{
+		SafeDelete(pObject);
+	}
+	_toBeDestroyed.clear();
+
 	setting.pWorld->Terminate();
+	SafeDelete(_pCollisionManager);
 
 	_isDestroy = true;
 }

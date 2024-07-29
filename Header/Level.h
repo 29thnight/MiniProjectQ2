@@ -1,5 +1,6 @@
 #pragma once
 #include <CoreDefine.h>
+#include <Mathf.h>
 
 namespace Engine
 {
@@ -20,16 +21,23 @@ namespace Engine
 		virtual void EndPlay();
 
 	public:
+		void SetWorld(World* pWorld) { _pWorld = pWorld; }
 		bool InsertActor(Actor* pActor);
 		bool AddActor(Actor* pActor);
 		Actor* GetActor(_pstring name);
+		bool SpawnActor(int layerIndex, _pstring name, Actor* pActor);
+		bool SpawnActor(int layerIndex, _pstring name, Actor* pActor, Mathf::Vector2 location);
+		bool RemoveActor(_pstring name);
+		bool TerminateActor(_pstring name);
+		bool ReviveActor(_pstring name);
 
 	public:
-		void SettingCamera(CameraActor* pCameraActor){ _pCameraActor = pCameraActor; }
+		void SettingLevelCamera(CameraActor* pCameraActor){ _pCameraActor = pCameraActor; }
 		virtual void Destroy() override;
 
 	private:
 		ActorsList	 _actors;
+		World*		 _pWorld{ nullptr };
 		CameraActor* _pCameraActor{ nullptr };
 		int			 _levelIndex{ 0 };
 	};

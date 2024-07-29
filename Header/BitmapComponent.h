@@ -15,6 +15,7 @@ namespace Engine
 		virtual ~BitmapComponent() = default;
 
 	public:
+		virtual bool InitializeComponent() override;
 		virtual void Render(_RenderTarget pRenderTarget) override;
 
 	public:
@@ -38,7 +39,6 @@ namespace Engine
 		bool IsFlip() const { return _isFlip; }
 
 	protected:
-		virtual bool InitializeComponent() override;
 		virtual void Destroy() override;
 
 	public:

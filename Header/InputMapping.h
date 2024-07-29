@@ -8,7 +8,7 @@ namespace Engine
 	CORECLASS()
 	class InputMapping abstract : public CoreBase
 	{
-	private:
+	protected:
 		explicit InputMapping() = default;
 		virtual ~InputMapping() = default;
 
@@ -21,22 +21,17 @@ namespace Engine
 		void SetTarget(Actor* target) { _target = target; }
 		void SetPriority(int priority) { _priority = priority; }
 		IInputAction* GetCurrentAction() const { return _currentAction; }
+		void SetInputComponent(InputComponent* inputComponent) { _inputComponent = inputComponent; }
 
-		void ChangeAction(IInputAction* inputAction)
-		{
-			if (_currentAction != nullptr)
-			{
-				_currentAction->Completed();
-			}
+		void ChangeAction(IInputAction* inputAction);
+		void CompareAndTriggerAction(_uint key, InputType type, _float deltaSeconds);
+		void Destroy() override;
 
-			_currentAction = inputAction;
-			_currentAction->Entered();
-		}
-
-	private:
+	protected:
 		Actor*	_target{ nullptr };
 		int		_priority{ 0 };
 		IInputAction* _currentAction{ nullptr };
+		InputComponent* _inputComponent{ nullptr };
 		std::vector<IInputAction*> _actions;
 	};
 }

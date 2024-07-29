@@ -16,9 +16,11 @@ namespace Engine
 		void SetName(_pstring name) { _name = name; }
 
 	public:
+		void OnCompleteDestroyMark() { _isMark = true; _isCompleteDestroy = true; }
 		void OnDestroyMark() { _isMark = true; }
 		void OnRevive() { _isMark = false; }
 		bool IsDestroyMarked() const { return _isMark; }
+		bool IsCompleteDestroyMarked() const { return _isCompleteDestroy; }
 		void CreateObjectDirectory();
 
 	protected:
@@ -33,5 +35,6 @@ namespace Engine
 	private:
 		_uint _instanceID{ 0 };
 		bool  _isMark{ false };
+		bool  _isCompleteDestroy{ false };
 	};
 }

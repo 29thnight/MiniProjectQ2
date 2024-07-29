@@ -20,14 +20,6 @@ bool Engine::World::InitializeWorld(int layerSize)
 		return result;
 	}
 
-#ifdef _DEBUG
-		result = Graphics->AddBrush("Debug", ChooseColor(Palette::White));
-		if (!result)
-		{
-			return result;
-		}
-#endif // _DEBUG
-
 	return result;
 }
 
@@ -35,7 +27,12 @@ bool Engine::World::BeginPlayEnd()
 {
 	for (auto iter = _vecLevels.begin(); iter != _vecLevels.end(); iter++)
 	{
-		(*iter)->SettingCamera(_pCameraActor);
+		(*iter)->SettingLevelCamera(_pCameraActor);
+	}
+
+	for (auto iter = _vecLayers.begin(); iter != _vecLayers.end(); iter++)
+	{
+		(*iter)->SettingLayerCamera(_pCameraActor);
 	}
 
 	return true;
@@ -60,6 +57,11 @@ bool Engine::World::BeginPlay()
 
 void Engine::World::Tick(_float deltaSeconds)
 {
+	if(_pCameraActor)
+	{
+		_pCameraActor->Tick(deltaSeconds);
+	}
+
 	for (auto iter = _vecLevels.begin(); iter != _vecLevels.end(); iter++)
 	{
 		(*iter)->Tick(deltaSeconds);
@@ -76,12 +78,6 @@ void Engine::World::Fixed()
 
 void Engine::World::Render(_RenderTarget pRenderTarget)
 {
-
-#ifdef _DEBUG
-	DebugDrawGrid(pRenderTarget);
-#endif // _DEBUG
-
-
 	for(auto iter = _vecLayers.begin(); iter != _vecLayers.end(); iter++)
 	{
 		(*iter)->Render(pRenderTarget);
@@ -178,7 +174,7 @@ void Engine::World::ClearLayer()
 {
 	for(auto iter = _vecLayers.begin(); iter != _vecLayers.end(); iter++)
 	{
-		(*iter)->Destroy();
+		SafeDelete(*iter);
 	}
 
 	_vecLayers.clear();
@@ -200,7 +196,7 @@ void Engine::World::SettingCamera(CameraActor* pCameraActor)
 
 void Engine::World::SettingCameraPosition(Mathf::Vector2 position)
 {
-	_pCameraActor->GetCameraComponent()->SetRelativeLocation(position);
+	_pCameraActor->GetRootComponent()->SetRelativeLocation(position);
 }
 
 void Engine::World::SettingTrackingCameraTarget(Actor* pTargetActor)
@@ -226,7 +222,7 @@ bool Engine::World::IsTrackingCamera() const
 
 void Engine::World::SettingCameraOffset(Mathf::Vector2 offset)
 {
-	_pCameraActor->GetCameraComponent()->SetCameraOffset(offset);
+	_pCameraActor->GetCameraComponent()->SetRelativeLocation(offset);
 }
 
 Engine::Actor* Engine::World::FindActor(_pstring name)
@@ -242,8 +238,6 @@ bool Engine::World::SpawnActor(int layerIndex, _pstring name, Actor* pActor)
 
 	_actorMap.insert(std::make_pair(name, pActor));
 	_vecLevels[_currentLevelIndex]->AddActor(pActor);
-	
-	pActor->BeginPlay();
 
 	return true;
 }
@@ -258,8 +252,6 @@ bool Engine::World::SpawnActor(int layerIndex, _pstring name, Actor* pActor, Mat
 
 	_actorMap.insert(std::make_pair(name, pActor));
 	_vecLevels[_currentLevelIndex]->AddActor(pActor);
-	
-	pActor->BeginPlay();
 
 	return true;
 }
@@ -267,6 +259,14 @@ bool Engine::World::SpawnActor(int layerIndex, _pstring name, Actor* pActor, Mat
 bool Engine::World::RemoveActor(_pstring name)
 {
 	_actorMap.find(name)->second->OnDestroyMark();
+
+	return true;
+}
+
+bool Engine::World::TerminateActor(_pstring name)
+{
+	Actor* pActor = _actorMap.find(name)->second;
+	pActor->OnCompleteDestroyMark();
 
 	return true;
 }
@@ -281,7 +281,7 @@ bool Engine::World::ReviveActor(_pstring name)
 		_vecLevels[_currentLevelIndex]->InsertActor(pActor);
 		pActor->ReviveInitialize();
 		pActor->SetWorld(this);
-		CoreManager::GetInstance()->UnRegisterDestroyList(pActor);
+		Management->UnRegisterDestroyList(pActor);
 
 		return true;
 	}
