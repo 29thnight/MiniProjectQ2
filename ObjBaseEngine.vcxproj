@@ -38,6 +38,7 @@
     <ClInclude Include="Header\CoreManager.h" />
     <ClInclude Include="Header\CoreStruct.h" />
     <ClInclude Include="Header\CoreType.h" />
+    <ClInclude Include="Header\CsvLoader.h" />
     <ClInclude Include="Header\Delegate.h" />
     <ClInclude Include="Header\FontManager.h" />
     <ClInclude Include="Header\GraphicsManager.h" />
@@ -51,7 +52,6 @@
     <ClInclude Include="Header\ISetupInputComponent.h" />
     <ClInclude Include="Header\Layer.h" />
     <ClInclude Include="Header\Level.h" />
-    <ClInclude Include="Header\LogManager.h" />
     <ClInclude Include="Header\MainEntry.h" />
     <ClInclude Include="Header\Mathf.h" />
     <ClInclude Include="Header\Matx.h" />
@@ -59,6 +59,8 @@
     <ClInclude Include="Header\Object.h" />
     <ClInclude Include="Header\ObjectPtr.h" />
     <ClInclude Include="Header\Random.h" />
+    <ClInclude Include="Header\RayCastComponent.h" />
+    <ClInclude Include="Header\RCollision.h" />
     <ClInclude Include="Header\RenderComponent.h" />
     <ClInclude Include="Header\RigidBodyComponent.h" />
     <ClInclude Include="Header\SceneComponent.h" />
@@ -77,7 +79,6 @@
     <ClInclude Include="Header\Transform.h" />
     <ClInclude Include="Header\Vector2.h" />
     <ClInclude Include="Header\World.h" />
-    <ClInclude Include="ThirdParty\json.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\ACollision.cpp" />
@@ -91,6 +92,8 @@
     <ClCompile Include="Src\CollisionComponent.cpp" />
     <ClCompile Include="Src\CollisionManager.cpp" />
     <ClCompile Include="Src\InputMapping.cpp" />
+    <ClCompile Include="Src\RayCastComponent.cpp" />
+    <ClCompile Include="Src\RCollision.cpp" />
     <ClCompile Include="Src\RigidBodyComponent.cpp" />
     <ClCompile Include="Src\State.cpp" />
     <ClCompile Include="Src\CoreManager.cpp" />
@@ -168,6 +171,11 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PublicIncludeDirectories>
+    </PublicIncludeDirectories>
+    <LibraryPath>../ThirdParty/FMOD/lib/x64/;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -212,14 +220,18 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>Src;Header;ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <AdditionalIncludeDirectories>Src;Header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

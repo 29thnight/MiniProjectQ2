@@ -95,11 +95,5 @@ void Engine::MovementComponent::DiagonalMove(float deltaSeconds)
 
 Engine::MovementComponent* Engine::MovementComponent::Create()
 {
-	MovementComponent* pInstance = new MovementComponent;
-	if (pInstance->InitializeComponent())
-	{
-		return pInstance;
-	}
-
-	return nullptr;
+	return new MovementComponent();
 }

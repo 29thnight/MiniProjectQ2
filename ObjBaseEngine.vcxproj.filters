@@ -67,9 +67,6 @@
     <Filter Include="Engine\Utility\Singleton">
       <UniqueIdentifier>{30c7673f-e72e-458a-96a6-b349fd155886}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\BaseClass\Acollision">
-      <UniqueIdentifier>{76fcbfb0-92c4-44c9-884b-097dcdeee383}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\BaseClass\Actor">
       <UniqueIdentifier>{0a10bbd5-1733-45b4-8c49-ef3913c61652}</UniqueIdentifier>
     </Filter>
@@ -111,9 +108,6 @@
     </Filter>
     <Filter Include="Engine\BaseClass\Resource\Texture">
       <UniqueIdentifier>{39f0fb30-d59e-4c87-b017-3c2c73d23895}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\BaseClass\Resource\Asset">
-      <UniqueIdentifier>{e429e947-2784-47a9-a7cb-82aab5d59250}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Components\ActorComponents">
       <UniqueIdentifier>{8f3d6d54-db64-4927-8cf5-b9371183ecb1}</UniqueIdentifier>
@@ -166,9 +160,6 @@
     <Filter Include="Engine\Managers\InputManager">
       <UniqueIdentifier>{6c4be7aa-6f0c-429b-97ce-38ba13e919c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Managers\LogManager">
-      <UniqueIdentifier>{f2b29144-1040-414c-a234-502ac61463a2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Managers\ResourceManager">
       <UniqueIdentifier>{fe1e78b3-ff98-4c2d-ad31-c13d7acae9ec}</UniqueIdentifier>
     </Filter>
@@ -205,26 +196,32 @@
     <Filter Include="Engine\BaseClass\StateMachine\StateMachine">
       <UniqueIdentifier>{e4d8dffa-f9dc-4a66-8b70-7510daab27cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Utility\ThirdParty">
-      <UniqueIdentifier>{73b2cdeb-5734-42cd-b34c-7e3bde2d7dce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Utility\ThirdParty\json">
-      <UniqueIdentifier>{5310dc04-97bc-4968-813f-689069d6c756}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Utility\IniFileLoader">
       <UniqueIdentifier>{9a77087a-773f-4f2c-83c4-fefdb18427b0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Components\SceneComponents\CollisionComponent\SphereComponent">
       <UniqueIdentifier>{50d90b52-a828-4e9a-b58b-ffcc903d1823}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Components\SceneComponents\CollisionComponent\OBBComponent">
-      <UniqueIdentifier>{14baa43b-febb-44ff-84a9-3bbef1b2f7e5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Components\ActorComponents\RigidBodyComponent">
       <UniqueIdentifier>{4972744c-270a-4478-83dc-96a5c6cddb49}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Components\SceneComponents\CollisionComponent\RayCastComponent">
       <UniqueIdentifier>{79b66000-c26a-4a43-b289-74eec874bb72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Utility\CsvFileLoader">
+      <UniqueIdentifier>{a1a4b4e2-1156-47ae-9d30-5d1d31319366}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Components\SceneComponents\CollisionComponent\OBBComponent">
+      <UniqueIdentifier>{14baa43b-febb-44ff-84a9-3bbef1b2f7e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\BaseClass\Collision">
+      <UniqueIdentifier>{d5bc5650-68f6-4ff5-9ee2-3b1faf97794f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\BaseClass\Collision\Acollision">
+      <UniqueIdentifier>{76fcbfb0-92c4-44c9-884b-097dcdeee383}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\BaseClass\Collision\Rcollision">
+      <UniqueIdentifier>{6f0aa12b-aa9b-45f7-b942-0604b4b1e466}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -265,7 +262,7 @@
       <Filter>Engine\Utility\ObjectPtr</Filter>
     </ClInclude>
     <ClInclude Include="Header\ACollision.h">
-      <Filter>Engine\BaseClass\Acollision</Filter>
+      <Filter>Engine\BaseClass\Collision\Acollision</Filter>
     </ClInclude>
     <ClInclude Include="Header\CameraActor.h">
       <Filter>Engine\BaseClass\Actor\CameraActor</Filter>
@@ -345,9 +342,6 @@
     <ClInclude Include="Header\InputManager.h">
       <Filter>Engine\Managers\InputManager</Filter>
     </ClInclude>
-    <ClInclude Include="Header\LogManager.h">
-      <Filter>Engine\Managers\LogManager</Filter>
-    </ClInclude>
     <ClInclude Include="Header\TimeManager.h">
       <Filter>Engine\Managers\TimeManager</Filter>
     </ClInclude>
@@ -387,9 +381,6 @@
     <ClInclude Include="Header\Delegate.h">
       <Filter>Engine\BaseClass\Delegate</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\json.hpp">
-      <Filter>Engine\Utility\ThirdParty\json</Filter>
-    </ClInclude>
     <ClInclude Include="Header\CollisionManager.h">
       <Filter>Engine\Managers\CollisionManager</Filter>
     </ClInclude>
@@ -405,13 +396,22 @@
     <ClInclude Include="Header\RigidBodyComponent.h">
       <Filter>Engine\Components\ActorComponents\RigidBodyComponent</Filter>
     </ClInclude>
+    <ClInclude Include="Header\CsvLoader.h">
+      <Filter>Engine\Utility\CsvFileLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RCollision.h">
+      <Filter>Engine\BaseClass\Collision\Rcollision</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RayCastComponent.h">
+      <Filter>Engine\Components\SceneComponents\CollisionComponent\RayCastComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\MainEntry.cpp">
       <Filter>Engine\ClientBase\MainEntry</Filter>
     </ClCompile>
     <ClCompile Include="Src\ACollision.cpp">
-      <Filter>Engine\BaseClass\Acollision</Filter>
+      <Filter>Engine\BaseClass\Collision\Acollision</Filter>
     </ClCompile>
     <ClCompile Include="Src\CameraActor.cpp">
       <Filter>Engine\BaseClass\Actor\CameraActor</Filter>
@@ -511,6 +511,12 @@
     </ClCompile>
     <ClCompile Include="Src\BoxComponent.cpp">
       <Filter>Engine\Components\SceneComponents\CollisionComponent\BoxComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RCollision.cpp">
+      <Filter>Engine\BaseClass\Collision\Rcollision</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RayCastComponent.cpp">
+      <Filter>Engine\Components\SceneComponents\CollisionComponent\RayCastComponent</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

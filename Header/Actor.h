@@ -27,6 +27,10 @@ namespace Engine
 		virtual void ReviveInitialize() {};
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		template <typename T>
 		T* AddComponent(_pstring name)
 		{

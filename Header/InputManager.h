@@ -27,6 +27,10 @@ namespace Engine
 		XINPUT_STATE* ReturnGamePad() { return _pGamePad; }
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		void ProcessKeyboardInput();
 		void ProcessMouseInput();
 		void ProcessGamePadInput();

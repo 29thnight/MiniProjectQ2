@@ -15,6 +15,10 @@ namespace Engine
 		State* GetCurrentState() const { return currentState; }
 
     public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+    public:
 		static StateMachine* Create() { return new StateMachine(); }
         virtual void Destroy() override;
 

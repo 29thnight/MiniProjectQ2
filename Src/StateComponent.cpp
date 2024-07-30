@@ -55,12 +55,7 @@ const std::vector<Engine::StateTransition*>& Engine::StateComponent::GetTransiti
 
 Engine::StateComponent* Engine::StateComponent::Create()
 {
-	StateComponent* pInstance = new StateComponent();
-	if (pInstance->InitializeComponent())
-		return pInstance;
-
-	SafeDelete(pInstance);
-	return nullptr;
+	return new StateComponent();
 }
 
 void Engine::StateComponent::Destroy()

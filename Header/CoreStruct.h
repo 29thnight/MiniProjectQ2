@@ -6,7 +6,7 @@ namespace Engine
 	class Texture;
 	struct AnimationClip
 	{
-		const char* clipName{};
+		string clipName{};
 		int clipIndex{};
 		float frameTime{};
 		bool isLoop{};
@@ -22,6 +22,15 @@ namespace Engine
 	{
 		CollisionComponent* thisComponent{ nullptr };
 		CollisionComponent* otherComponent{ nullptr };
+	};
+}
+
+namespace Engine
+{
+	struct FadeSound
+	{
+		float current{ 1.f };
+		float target{ 1.f };
 	};
 }
 

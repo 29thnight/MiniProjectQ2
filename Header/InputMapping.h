@@ -13,6 +13,10 @@ namespace Engine
 		virtual ~InputMapping() = default;
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		virtual void KeyMapping() abstract;
 		virtual void MappingContext(const InputValue& inputEvent) abstract;
 

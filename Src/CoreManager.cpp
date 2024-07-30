@@ -22,6 +22,7 @@ void Engine::CoreManager::Tick()
 	Time->UpdateTick();
 	InputMgr->InputUpdate();
 	setting.pWorld->Tick(Time->DeltaSeconds);
+	_pCollisionManager->SimulateCollision();
 
 	float deltaSeconds = Time->DeltaSeconds;
 }
@@ -40,7 +41,6 @@ void Engine::CoreManager::Fixed(int count)
 
 	if(_elapsedTick >= fixedTick)
 	{
-		_pCollisionManager->SimulateCollision();
 		setting.pWorld->Fixed();
 		_elapsedTick -= fixedTick;
 	}

@@ -53,6 +53,13 @@
 #include <typeindex>
 #include <chrono>
 #include <filesystem>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <tuple>
+#include <type_traits>
+#include <stdexcept>
 //#include <memory_resource>
 
 #include <CoreEnum.h>

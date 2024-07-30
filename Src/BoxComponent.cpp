@@ -1,9 +1,11 @@
-#include <BoxComponent.h>
+#include <Actor.h>
 #include <CollisionComponent.h>
 #include <CoreManager.h>
 #include <GraphicsManager.h>
 #include <ACollision.h>
-#include <Actor.h>
+#include <RCollision.h>
+#include <RayCastComponent.h>
+#include <BoxComponent.h>
 
 bool Engine::BoxComponent::InitializeComponent()
 {
@@ -28,13 +30,33 @@ void Engine::BoxComponent::TickComponent(_float deltaSeconds)
 
 bool Engine::BoxComponent::IsCollision(CollisionComponent* pOther)
 {
-	if (pOther->GetColliderType() == Collider::COLLIDER_AABB)
+	if(this->_owner == pOther->GetOwner())
+	{
+		return false;
+	}
+
+	switch (pOther->GetColliderType())
+	{
+	case Collider::COLLIDER_AABB:
 	{
 		BoxComponent* pBox = dynamic_cast<BoxComponent*>(pOther);
 		if (pBox)
 		{
-			return _pCollision->CheckCollision(pBox->_pCollision);
+			return _pCollision->CheckCollision(pBox->GetCollision());
 		}
+	}
+	break;
+	case Collider::COLLIDER_RAYCAST:
+	{
+		RayCastComponent* pRay = dynamic_cast<RayCastComponent*>(pOther);
+		if (pRay)
+		{
+			return _pCollision->CheckCollision(pRay->GetCollision());
+		}
+	}
+	break;
+	default:
+	break;
 	}
 
 	return false;
@@ -80,19 +102,13 @@ void Engine::BoxComponent::SetSize(const Mathf::Vector2& sizeVector)
 	_pCollision->SetCollisionSize(sizeVector);
 }
 
-void Engine::BoxComponent::Remove()
+void Engine::BoxComponent::Destroy()
 {
+	SafeDelete(_pCollision);
 	Management->RemoveCollisionQueue(_owner->GetLayerIndex(),this);
-	SafeRelease(_pCollision);
 }
 
 Engine::BoxComponent* Engine::BoxComponent::Create()
 {
-	BoxComponent* pInstance = new BoxComponent;
-	if (pInstance->InitializeComponent())
-	{
-		return pInstance;
-	}
-
-	return nullptr;
+	return new BoxComponent;
 }

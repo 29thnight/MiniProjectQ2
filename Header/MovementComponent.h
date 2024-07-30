@@ -20,6 +20,10 @@ namespace Engine
 		virtual void Destroy() override{};
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		void Move(float deltaSeconds);
 		void Run(float deltaSeconds);
 		void Jump(float deltaSeconds);

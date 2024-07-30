@@ -29,6 +29,9 @@
     __interface IColliderReceiver;  \
 	__interface IInputAction;       \
     class ACollision;               \
+    class RCollision;               \
+	class SCollision;               \
+	class OCollision;               \
     class Level;                    \
 	class Canvas;                   \
     class Texture;                  \

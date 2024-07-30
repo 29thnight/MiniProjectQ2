@@ -11,24 +11,29 @@ namespace Engine
 		virtual ~AnimationComponent() = default;
 
 	public:
+		virtual bool InitializeComponent() override;
 		virtual void TickComponent(_float deltaSeconds) override;
 		virtual void Render(_RenderTarget pRenderTarget) override;
+		void AllAddClipThisActor();
 		void AddClip(_pstring clipName, _float frameTime, bool isLoop = false);
 		const bool IsClipPlay(_pstring clipName) const;
 		const bool IsClipEnd(_pstring clipName) const;
 		const bool IsFrameEnd() const;
 		void SetPlayClip(_pstring clipName);
 		void RemoveClip(_pstring clipName);
+
+	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
 		
 	protected:
-		virtual bool InitializeComponent() override;
 		virtual void Destroy() override;
 
 	public:
 		static AnimationComponent* Create();
 
 	private:
-		std::unordered_map<_pstring, AnimationClip*> _vecClips;
+		std::unordered_map<std::string, AnimationClip*> _vecClips;
 		_pstring _currentClipName{};
 		float	 _frameTime{ 0 };
 		float	 _currentFrameTime{ -1 };

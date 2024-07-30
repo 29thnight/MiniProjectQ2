@@ -14,6 +14,10 @@ namespace Engine
 		~Layer() = default;
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		void Render(_RenderTarget pRenderTarget);
 
 	public:

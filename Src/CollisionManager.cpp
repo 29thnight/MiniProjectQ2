@@ -22,6 +22,9 @@ void Engine::CollisionManager::SimulateCollision()
 			if (pCollision == pOther)
 				continue;
 
+			if (pCollision.second->GetOwner() == pOther.second->GetOwner())
+				continue;
+
 			if (pCollision.second->GetOwner()->IsDestroyMarked() 
 				|| pOther.second->GetOwner()->IsDestroyMarked())
 				continue;
@@ -75,12 +78,14 @@ void Engine::CollisionManager::RemoveCollisionQueue(int layerIndex, CollisionCom
 	if (nullptr == pCollsionComponent)
 	return;
 
-_collisionQueue.erase(
-	std::find_if(_collisionQueue.begin(), _collisionQueue.end(),
-		[layerIndex, pCollsionComponent](const CollsionData& data)
+	for (auto iter = _collisionQueue.begin(); iter != _collisionQueue.end(); iter++)
+	{
+		if (iter->second == pCollsionComponent)
 		{
-			return data.first == layerIndex && data.second == pCollsionComponent;
-		}));
+			_collisionQueue.erase(iter);
+			break;
+		}
+	}
 }
 
 Engine::CollisionManager* Engine::CollisionManager::Create()

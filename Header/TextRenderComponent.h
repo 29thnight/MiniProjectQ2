@@ -23,6 +23,10 @@ namespace Engine
 		_pFontFormat GetFont() const { return _font; }
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		static TextRenderComponent* Create();
 
 	private:

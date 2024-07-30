@@ -27,8 +27,6 @@ void Engine::CameraActor::Tick(_float deltaSeconds)
 	Mathf::Vector2 cameraOffset = _cameraComponent->GetCameraOffset();
 	Mathf::Vector2 cameraLocation = _cameraComponent->GetRelativeLocation();
 
-	_cameraLerpFactor = fmin(3.0f, _cameraLerpFactor + deltaSeconds * 0.1f);
-
 	Mathf::Vector2 targetLocation = ( parentLocation - cameraCenter - cameraOffset );
 	Mathf::Vector2 newLocation = Mathf::Lerp(cameraLocation, targetLocation, _cameraLerpFactor * deltaSeconds);
 
@@ -102,6 +100,7 @@ bool Engine::CameraActor::Initialize()
 {
 	_cameraComponent = CameraComponent::Create();
 	_cameraComponent->SetOwner(this);
+	_cameraComponent->InitializeComponent();
 
 	SetRootComponent(_cameraComponent);
 	_vecComponents.push_back(MakeObjectPtr<ActorComponent>(_cameraComponent));
@@ -113,6 +112,7 @@ bool Engine::CameraActor::Initialize()
 
 void Engine::CameraActor::Destroy()
 {
+	Actor::Destroy();
 }
 
 Engine::CameraActor* Engine::CameraActor::Create()

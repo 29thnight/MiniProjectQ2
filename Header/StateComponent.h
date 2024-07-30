@@ -17,6 +17,10 @@ namespace Engine
 		virtual void TickComponent(_float deltaSeconds) override;
 		virtual void EndPlay() override;
 
+	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
 		void AddState(int stateNumber, State* state);
 		State* GetState(int stateNumber);
 		void SetCurrentState(int stateNumber);

@@ -18,6 +18,10 @@ namespace Engine
 		virtual void EndPlay() override {};
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		void SetCenterPosition(Mathf::Vector2 centerPosition) { _centerPosition = centerPosition; }
 		Mathf::Vector2 GetCenterPosition() const { return _centerPosition; }
 

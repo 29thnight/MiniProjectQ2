@@ -28,6 +28,10 @@ namespace Engine
 		void DestroyPoint();
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		void Initialize(GameSettings&& gameSettings);
 		bool IsFinalDestroy() const { return _isDestroy; }
 

@@ -25,6 +25,10 @@ namespace Engine
 		virtual void EndPlay() override {};
 		CameraComponent* GetCameraComponent() { return _cameraComponent; }
 
+	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
 		void TrackTarget(Actor* pTarget);
 		void SetCameraLerpFactor(float lerpFactor) { _cameraLerpFactor = lerpFactor; }
 		void SettingTracking(bool isTracking) { _isTracking = isTracking; }

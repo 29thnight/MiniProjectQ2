@@ -21,6 +21,10 @@ namespace Engine
 		virtual void EndPlay();
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		void SetWorld(World* pWorld) { _pWorld = pWorld; }
 		bool InsertActor(Actor* pActor);
 		bool AddActor(Actor* pActor);

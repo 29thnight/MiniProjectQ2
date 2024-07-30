@@ -1,4 +1,7 @@
 #include "FontManager.h"
+#include <CsvLoader.h>
+
+namespace file = std::filesystem;
 
 bool Engine::FontManager::Initialize()
 {
@@ -29,6 +32,14 @@ bool Engine::FontManager::Initialize()
 		}
 
 		return true;
+}
+
+bool Engine::FontManager::LoadFonts()
+{
+	//string fontPath = "Assets/Fonts/FontSetting.csv";
+	//CSVReader<>
+
+	return true;
 }
 
 HRESULT Engine::FontManager::LoadFontFile(_pwstring fontFilePath, _pwstring fontName, float fontSize)

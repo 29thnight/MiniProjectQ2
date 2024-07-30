@@ -4,6 +4,7 @@
 #include <World.h>
 #include <CoreManager.h>
 #include <SceneComponent.h>
+#include <CameraActor.h>
 #include <Mathf.h>
 
 void Engine::Level::Tick(_float deltaSeconds)
@@ -95,6 +96,8 @@ bool Engine::Level::SpawnActor(int layerIndex, _pstring name, Actor* pActor)
 
 	_pWorld->GetActorMap().insert(std::make_pair(name, pActor));
 	AddActor(pActor);
+
+	return true;
 }
 
 bool Engine::Level::SpawnActor(int layerIndex, _pstring name, Actor* pActor, Mathf::Vector2 location)
@@ -107,6 +110,8 @@ bool Engine::Level::SpawnActor(int layerIndex, _pstring name, Actor* pActor, Mat
 
 	_pWorld->GetActorMap().insert(std::make_pair(name, pActor));
 	AddActor(pActor);
+
+	return true;
 }
 
 bool Engine::Level::RemoveActor(_pstring name)

@@ -11,6 +11,10 @@ namespace Engine
 		virtual ~Object() = default;
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		_uint GetInstanceID() const { return _instanceID; }
 		_pstring GetName() const { return _name; }
 		void SetName(_pstring name) { _name = name; }

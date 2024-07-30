@@ -20,9 +20,12 @@ namespace Engine
 		virtual void EndPlay() override {};
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		//SceneComponent
 		void AttachToComponent(SceneComponent* pParent);
-		ACollision* GetCollision() const { return _pCollision; }
 
 	public:
 		//Transform
@@ -30,10 +33,9 @@ namespace Engine
 		void UpdateVelocity() override;
 
 	protected:
-		virtual void Destroy(){};
+		virtual void Destroy() override { };
 
 	protected:
-		ACollision*		 _pCollision{ nullptr };
 		SceneComponent*				 _parent = nullptr;
 		std::vector<SceneComponent*> _children;
 

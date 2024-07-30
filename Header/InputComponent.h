@@ -30,13 +30,16 @@ namespace Engine
 		using InputEvents = std::deque<InputValue>;
 		using MapUniqueKey = std::vector<std::pair<_uint,InputComponent*>>;
 
-
 	public:
 		virtual bool InitializeComponent() override;
 		virtual void BeginPlay() override { };
 		virtual void TickComponent(_float deltaSeconds) override;
 		virtual void EndPlay() override {};
 		virtual void OnInputReceived(const InputValue& value) override;
+
+	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
 
 	public:
 		void BindKey(_uint key);

@@ -15,13 +15,18 @@ namespace Engine
 		virtual void TickComponent(_float deltaSeconds) override;
 		virtual bool IsCollision(CollisionComponent* pOther) override;
 		virtual void Render(_RenderTarget pRenderTarget) override; //for debug draw
+
+	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
 	
 	public:
 		void SetAddOffset(const Mathf::Vector2& offsetVector); 
 		void SetSize(const Mathf::Vector2& sizeVector);
+		ACollision* GetCollision() const { return _pCollision; }
 
 	public:
-		void Remove();
+		void Destroy() override;
 	
 	public:
 		static BoxComponent* Create();

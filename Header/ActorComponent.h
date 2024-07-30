@@ -18,6 +18,10 @@ namespace Engine
 		virtual void EndPlay() abstract;
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		void Activate(bool reset) { _isActive = reset;}
 		bool IsActive() const { return _isActive; }
 

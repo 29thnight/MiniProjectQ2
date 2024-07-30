@@ -4,6 +4,8 @@
 #include <Texture.h>
 #include <TextureManager.h>
 #include <ACollision.h>
+#include <CoreDefine.h>
+#include <CsvLoader.h>
 
 #undef min
 #undef max
@@ -73,6 +75,18 @@ void Engine::AnimationComponent::Render(_RenderTarget pRenderTarget)
 	pRenderTarget->SetTransform(Matx::Identity);
 }
 
+void Engine::AnimationComponent::AllAddClipThisActor()
+{
+	string BasePath = (string)"Assets/" + GetOwner()->GetName();
+	string convertDataName = BasePath + "/Clips.csv";
+	CSVReader<std::string, float, bool> csvReader((_pstring)convertDataName);
+
+	csvReader.forEach([&](std::string clipName, float frameTime, bool isLoop)
+		{
+			AddClip(clipName.c_str(), frameTime, isLoop);
+		});
+}
+
 void Engine::AnimationComponent::AddClip(_pstring clipName, _float frameTime, bool isLoop)
 {
 	if(!_isInLayer)
@@ -86,10 +100,10 @@ void Engine::AnimationComponent::AddClip(_pstring clipName, _float frameTime, bo
 	pClip->clipIndex = (int)GetOwner()->GetTextureSize();
 	pClip->isLoop = isLoop;
 
-	_vecClips.insert(std::make_pair(clipName, pClip));
-	_bstr_t convertOwnerName = GetOwner()->GetName();
-	_bstr_t convertName = clipName;
-	_bstr_t textureName = convertOwnerName + "/" + convertName;
+	_vecClips[clipName] = std::move(pClip);
+	string convertOwnerName = (string)"Assets/" + GetOwner()->GetName();
+	string convertName = clipName;
+	string textureName = convertOwnerName + "/" + convertName;
 	
 	GetOwner()->AddTexture(TextureMgr->FindTexture(textureName));
 }
@@ -146,15 +160,14 @@ bool Engine::AnimationComponent::InitializeComponent()
 
 void Engine::AnimationComponent::Destroy()
 {
-	SafeDelete(_pCollision);
+	for (auto& clip : _vecClips)
+	{
+		delete clip.second;
+	}
 	_vecClips.clear();
 }
 
 Engine::AnimationComponent* Engine::AnimationComponent::Create()
 {
-	AnimationComponent* pInstance = new AnimationComponent();
-	if (pInstance->InitializeComponent())
-		return pInstance;
-
-    return nullptr;
+	return new AnimationComponent;
 }

@@ -18,10 +18,15 @@ namespace Engine
 		size_t size() const { return _textures.size(); }
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		static Texture* Create();
 		void Destroy() override;
 
 	private:
+		string _path{};
 		std::vector<SmartPtr<ID2D1Bitmap>> _textures{};
 	};
 }

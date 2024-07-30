@@ -20,7 +20,11 @@ namespace Engine
 		virtual void TickComponent(_float deltaSeconds) override abstract;
 		virtual bool IsCollision(CollisionComponent* pOther) abstract;
 		virtual void Render(_RenderTarget pRenderTarget) override abstract; //for debug draw
-		virtual void Destroy() override;
+		virtual void Destroy() override abstract;
+
+	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
 	
 	public:
 		void ProcessCollision();

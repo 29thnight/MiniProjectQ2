@@ -29,6 +29,10 @@ namespace Engine
 		virtual void Completed() override abstract;
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		void SetTriggerValue(const InputActionValue& value) { _triggerValue = value; }
 		const InputActionValue& GetTriggerValue() const { return _triggerValue; }
 

@@ -20,6 +20,10 @@ namespace Engine
 	public:
 		bool MainLoop();
 
+	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
 	private:
 		bool Initialize(GameSettings&& gameSettings);
 		void Destroy() override;

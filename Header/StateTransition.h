@@ -17,6 +17,10 @@ namespace Engine
         State* GetNextState() const { return toState; }
 		State* GetFromState() const { return fromState; }
 
+    public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
     protected:
         State* fromState;
         State* toState;

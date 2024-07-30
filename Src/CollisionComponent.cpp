@@ -3,11 +3,6 @@
 #include <CoreManager.h>
 #include <ACollision.h>
 
-void Engine::CollisionComponent::Destroy()
-{
-	SafeDelete(_pCollision);
-}
-
 void Engine::CollisionComponent::ProcessCollision()
 {
 	for(auto& pOtherComponent : _currentCollisionState)

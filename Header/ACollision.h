@@ -9,6 +9,11 @@ namespace Engine
 	protected:
 		explicit ACollision() = default;
 		virtual ~ACollision() = default;
+
+	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
 	public:
 		void SetCollisionSize(const Mathf::Vector2& collisionSize) { _collisionSize = collisionSize; }
 		Mathf::Vector2 GetCollisionSize() const { return _collisionSize; }
@@ -20,6 +25,7 @@ namespace Engine
 		Mathf::Vector2 GetCollisionScale() const { return _collisionSize; }
 
 		bool CheckCollision(ACollision* pCollision) const;
+		bool CheckCollision(RCollision* pCollision) const;
 
 	public:
 		static ACollision* Create() { return new ACollision(); }

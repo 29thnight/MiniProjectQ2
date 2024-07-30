@@ -20,6 +20,10 @@ namespace Engine
 		void RemoveCollisionQueue(int layerIndex, CollisionComponent* pCollsionComponent);
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		static CollisionManager* Create();
 		void Destroy() override;
 

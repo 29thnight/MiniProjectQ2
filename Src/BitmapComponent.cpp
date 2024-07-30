@@ -68,6 +68,8 @@ void Engine::BitmapComponent::Render(_RenderTarget pRenderTarget)
 
 void Engine::BitmapComponent::SetTextures(BitmapTextures* vecTextures)
 {
+	if (!vecTextures->back()) { return; }
+
 	_vecTextures = vecTextures;
 
 	AddRenderQueueInLayer();
@@ -79,7 +81,7 @@ void Engine::BitmapComponent::SetTextureRect(Texture* pTexture)
 
 	_textureRect = D2D1::RectF(0, 0, _size.width, _size.height);
 
-	_pCollision->SetCollisionSize({ _textureRect.right * _RelativeScale.x, _textureRect.bottom * _RelativeScale.y });
+	//_pCollision->SetCollisionSize({ _textureRect.right * _RelativeScale.x, _textureRect.bottom * _RelativeScale.y });
 }
 
 Mathf::RectF Engine::BitmapComponent::GetTextureRect()
@@ -104,26 +106,20 @@ void Engine::BitmapComponent::SetBitmapLocalTransform()
 
 bool Engine::BitmapComponent::InitializeComponent()
 {
-	if (!_pCollision)
-	{
-		_pCollision = ACollision::Create();
-	}
+	//if (!_pCollision)
+	//{
+	//	_pCollision = ACollision::Create();
+	//}
 
     return true;
 }
 
 void Engine::BitmapComponent::Destroy()
 {
-	SafeDelete(_pCollision);
+	//SafeDelete(_pCollision);
 }
 
 Engine::BitmapComponent* Engine::BitmapComponent::Create()
 {
-	BitmapComponent* pInstance = new BitmapComponent;
-	if (pInstance->InitializeComponent())
-	{
-		return pInstance;
-	}
-
-	return nullptr;
+	return new BitmapComponent;
 }

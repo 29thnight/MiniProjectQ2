@@ -4,6 +4,34 @@
 #include <windows.h>
 #include <CoreDefine.h>
 
+#define DEFINE_WWINMAIN(GAME_SETTINGS_PATH) \
+int APIENTRY wWinMain(_In_ HINSTANCE hInstance, \
+	_In_opt_ HINSTANCE hPrevInstance, \
+	_In_ LPWSTR lpszCmdParam, \
+	_In_ int nCmdShow) \
+{ \
+	\
+	_CrtSetBreakAlloc(0); \
+	\
+	UNREFERENCED_PARAMETER(hPrevInstance); \
+	UNREFERENCED_PARAMETER(lpszCmdParam); \
+	\
+	Client::ClientEntry winApp; \
+	\
+	winApp.CreateWorld(); \
+	\
+    Engine::GameSettings gameSetting{}; \
+    \
+    gameSetting.hInstance = hInstance; \
+	gameSetting.pWorld = winApp.ContainWorld(); \
+	winApp.LoadGameSettings(GAME_SETTINGS_PATH, gameSetting); \
+	EngineInititalize(winApp, gameSetting); \
+	\
+	_CrtDumpMemoryLeaks(); \
+	\
+	return EXIT_SUCCESS; \
+}
+
 namespace Engine
 {
 	class World;

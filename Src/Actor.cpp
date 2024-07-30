@@ -55,4 +55,8 @@ void Engine::Actor::PushBackComponent(ActorComponent* pComponent)
 
 void Engine::Actor::Destroy()
 {
+	_vecComponents.clear();
+	_vecTextures.clear();
+	_pRootComponent = nullptr;
+	_pParent = nullptr;
 }

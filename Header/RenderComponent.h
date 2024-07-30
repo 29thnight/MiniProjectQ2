@@ -23,6 +23,10 @@ namespace Engine
 		void SetCameraMatrix(const Mathf::Matx3F& cameraMatrix);
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		bool operator>(const RenderComponent& rhs) { return _order > rhs._order; };
 		bool operator<(const RenderComponent& rhs) { return _order < rhs._order; };
 

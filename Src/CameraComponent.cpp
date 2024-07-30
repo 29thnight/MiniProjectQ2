@@ -37,9 +37,5 @@ void Engine::CameraComponent::Destroy()
 
 Engine::CameraComponent* Engine::CameraComponent::Create()
 {
-	CameraComponent* pInstance = new CameraComponent();
-	if (pInstance->InitializeComponent())
-		return pInstance;
-
-	return nullptr;
+	return new CameraComponent();
 }

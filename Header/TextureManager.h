@@ -21,6 +21,11 @@ namespace Engine
 	public:
 		bool LoadTexture(LPCWSTR filePath);
 		Texture* FindTexture(_pwstring fileTag);
+		Textures& GetTextures() { return _textures; }
+
+	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
 
 	private:
 		void Destroy() override;

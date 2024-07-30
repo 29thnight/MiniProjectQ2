@@ -24,6 +24,10 @@ namespace Engine
 		void SetTimeScale(_float timeScale);
 
 	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
+
+	public:
 		ReadOnly_Property(_float, DeltaSeconds)
 		_Get(DeltaSeconds)
 		{

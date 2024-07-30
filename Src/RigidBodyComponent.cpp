@@ -54,3 +54,8 @@ void Engine::RigidBodyComponent::TickComponent(_float deltaSeconds)
 
 	_force = UnitVector::Zero;
 }
+
+Engine::RigidBodyComponent* Engine::RigidBodyComponent::Create()
+{
+	return new RigidBodyComponent();
+}

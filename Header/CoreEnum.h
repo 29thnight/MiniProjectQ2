@@ -28,6 +28,7 @@ namespace Collider
 		COLLIDER_AABB = 0,
 		COLLIDER_OBB,
 		COLLIDER_SPHERE,
+        COLLIDER_RAYCAST,
 		COLLIDER_END
 	};
 }

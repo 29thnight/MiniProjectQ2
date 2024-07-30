@@ -15,8 +15,13 @@ namespace Engine
 
 	public:
 		bool Initialize();
+		bool LoadFonts();
 		HRESULT LoadFontFile(_pwstring fontFilePath, _pwstring fontName, float fontSize);
 		_pFontFormat GetFont(_pwstring fontName);
+
+	public:
+		virtual void SerializeIn(nlohmann::ordered_json& object) {};
+		virtual void SerializeOut(nlohmann::ordered_json& object) {};
 
 	private:
 		void Destroy() override;
@@ -28,7 +33,7 @@ namespace Engine
 	private:
 		SmartPtr<IDWriteFactory5>							 _pDWriteFactory{ nullptr };
 		SmartPtr<IDWriteFontSetBuilder1>					 _pFontSetBuilder{ nullptr };
-		std::unordered_map<_pwstring, SmartPtr<_FontFormat>> _fontMap;
+		std::unordered_map<std::wstring, SmartPtr<_FontFormat>> _fontMap;
 	};
 }
 
