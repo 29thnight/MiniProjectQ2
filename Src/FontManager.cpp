@@ -36,8 +36,14 @@ bool Engine::FontManager::Initialize()
 
 bool Engine::FontManager::LoadFonts()
 {
-	//string fontPath = "Assets/Fonts/FontSetting.csv";
-	//CSVReader<>
+	string fontPath = "Assets/Fonts/FontSetting.csv";
+	CSVReader<std::string, float> csvReader((_pstring)fontPath);
+
+	csvReader.forEach([&](std::string fontName, float fontSize)
+		{
+			string fontFilePath = L"Assets/Fonts/" + (string)fontName.c_str() + ".ttf";
+			LoadFontFile(fontFilePath, (string)fontName.c_str(), fontSize);
+		});
 
 	return true;
 }

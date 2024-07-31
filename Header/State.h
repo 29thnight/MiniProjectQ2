@@ -6,7 +6,7 @@
 namespace Engine
 {
 	CORECLASS()
-	class State abstract : public CoreBase
+	class State : public CoreBase
 	{
 	protected:
 		explicit State() = default;

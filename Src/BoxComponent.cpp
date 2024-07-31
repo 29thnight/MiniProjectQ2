@@ -4,7 +4,7 @@
 #include <GraphicsManager.h>
 #include <ACollision.h>
 #include <RCollision.h>
-#include <RayCastComponent.h>
+#include <LineColliderComponent.h>
 #include <BoxComponent.h>
 
 bool Engine::BoxComponent::InitializeComponent()

@@ -33,6 +33,8 @@ bool Engine::System::Initialize(GameSettings&& gameSettings)
 	Management->Initialize(std::move(gameSettings));
 	Management->BeginPlay();
 	Time->Initialize();
+	FontMgr->Initialize();
+	FontMgr->LoadFonts();
 	Graphics->Initialize();
 	InputMgr->Initialize();
 	TextureMgr->LoadTexture(L"Assets");

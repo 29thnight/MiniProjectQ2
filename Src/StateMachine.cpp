@@ -2,6 +2,14 @@
 #include <State.h>
 #include <StateTransition.h>
 
+void Engine::StateMachine::AddState(int stateNumber, string StateName)
+{
+	State* state = new State(StateName);
+	state->SetStateID(stateNumber);
+	states[stateNumber] = state;
+	_vecStates.push_back(state);
+}
+
 void Engine::StateMachine::AddState(int stateNumber, State* state)
 {
 	state->SetStateID(stateNumber);

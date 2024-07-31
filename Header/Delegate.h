@@ -17,6 +17,13 @@ public:
         });
     }
 
+    template <typename T, typename U>
+    void AddDynamic(T* obj, void (U::*func)(Args...)) {
+        Bind([=](Args... args) {
+            (obj->*func)(args...);
+        });
+    }
+
     void Broadcast(Args... args) {
         for (auto& func : functions) {
             func(args...);

@@ -42,6 +42,11 @@ public:
         }
 
         std::string line;
+        if (!std::getline(file, line)) 
+        {
+            throw std::runtime_error("File is empty or cannot read the first line");
+        }
+
         while (std::getline(file, line)) 
         {
             std::vector<std::string> row;
