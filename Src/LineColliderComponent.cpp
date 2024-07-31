@@ -5,9 +5,9 @@
 #include <ACollision.h>
 #include <RCollision.h>
 #include <BoxComponent.h>
-#include <RayCastComponent.h>
+#include <LineColliderComponent.h>
 
-bool Engine::RayCastComponent::InitializeComponent()
+bool Engine::LineColliderComponent::InitializeComponent()
 {
 	_pCollision = RCollision::Create();
 	if (!_pCollision)
@@ -21,14 +21,14 @@ bool Engine::RayCastComponent::InitializeComponent()
 	return true;
 }
 
-void Engine::RayCastComponent::TickComponent(_float deltaSeconds)
+void Engine::LineColliderComponent::TickComponent(_float deltaSeconds)
 {
 	SceneComponent::TickComponent(deltaSeconds);
 	Mathf::Vector2 worldLocation = GetWorldLocation();
 	_pCollision->SetOrigin(worldLocation);
 }
 
-bool Engine::RayCastComponent::IsCollision(CollisionComponent* pOther)
+bool Engine::LineColliderComponent::IsCollision(CollisionComponent* pOther)
 {
 	switch (pOther->GetColliderType())
 	{
@@ -48,7 +48,7 @@ bool Engine::RayCastComponent::IsCollision(CollisionComponent* pOther)
 	return false;
 }
 
-void Engine::RayCastComponent::Render(_RenderTarget pRenderTarget)
+void Engine::LineColliderComponent::Render(_RenderTarget pRenderTarget)
 {
 	if (_type == Collision::COLLISION_IGNORE)
 	{
@@ -75,23 +75,23 @@ void Engine::RayCastComponent::Render(_RenderTarget pRenderTarget)
 	pRenderTarget->DrawLine(D2D1::Point2F(point.x, point.y), D2D1::Point2F(point.x + direction.x, point.y + direction.y), m_pBrush, 3.0f);
 }
 
-void Engine::RayCastComponent::SetAddOffset(const Mathf::Vector2& offsetVector)
+void Engine::LineColliderComponent::SetAddOffset(const Mathf::Vector2& offsetVector)
 {
 	SetRelativeLocation(offsetVector);
 }
 
-void Engine::RayCastComponent::SetSize(const Mathf::Vector2& sizeVector)
+void Engine::LineColliderComponent::SetSize(const Mathf::Vector2& sizeVector)
 {
 	_pCollision->SetRayDirection(sizeVector);
 }
 
-void Engine::RayCastComponent::Destroy()
+void Engine::LineColliderComponent::Destroy()
 {
 	Management->RemoveCollisionQueue(_owner->GetLayerIndex(), this);
 	SafeDelete(_pCollision);
 }
 
-Engine::RayCastComponent* Engine::RayCastComponent::Create()
+Engine::LineColliderComponent* Engine::LineColliderComponent::Create()
 {
-	return new RayCastComponent();
+	return new LineColliderComponent();
 }

@@ -24,6 +24,7 @@ namespace Engine
 
 	public:
 		void SetMass(float mass) { _mass = mass; }
+		void SetFriction(float friction) { _friction = friction; }
 		void AddForce(Mathf::Vector2 force) { _force += force; }
 		void SetGrounded(bool isGrounded) { _isGrounded = isGrounded; }
 		void SetVelocity(Mathf::Vector2 velocity) { _velocity = velocity; }
@@ -40,11 +41,11 @@ namespace Engine
 		Mathf::Vector2 _acceleration{ UnitVector::Zero };
 		Mathf::Vector2 _velocity{ UnitVector::Zero };
 		Mathf::Vector2 _force{ UnitVector::Zero };
-		Mathf::Vector2 _gravity{ 0.f, -9.8f };
+		Mathf::Vector2 _gravity{ 0.f, 9.8f };
 
 	private:
 		float _mass{ 1.f };
-		float _friction{ 0.f };
+		float _friction{ 100.f };
 		float _gravityFactor{ 800.f };
 
 	private:

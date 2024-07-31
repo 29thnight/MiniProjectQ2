@@ -24,12 +24,12 @@ void Engine::RigidBodyComponent::TickComponent(_float deltaSeconds)
 	gravity = gravity * Mathf::Dot(_velocity, gravity.Normalize());
 
 	Mathf::Vector2 sideVelocity = _velocity - gravity;
-	if(_limitedVelocity.y < gravity.Length)
+	if (abs(_limitedVelocity.y) < abs(gravity.Length))
 	{
 		_velocity = gravity.Normalize() * _limitedVelocity.y;
 	}
 
-	if (_limitedVelocity.x < sideVelocity.Length)
+	if (abs(_limitedVelocity.x) < abs(sideVelocity.Length))
 	{
 		_velocity = sideVelocity.Normalize() * _limitedVelocity.x;
 	}

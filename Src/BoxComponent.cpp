@@ -48,7 +48,7 @@ bool Engine::BoxComponent::IsCollision(CollisionComponent* pOther)
 	break;
 	case Collider::COLLIDER_RAYCAST:
 	{
-		RayCastComponent* pRay = dynamic_cast<RayCastComponent*>(pOther);
+		LineColliderComponent* pRay = dynamic_cast<LineColliderComponent*>(pOther);
 		if (pRay)
 		{
 			return _pCollision->CheckCollision(pRay->GetCollision());

@@ -402,7 +402,7 @@
     <ClInclude Include="Header\RCollision.h">
       <Filter>Engine\BaseClass\Collision\Rcollision</Filter>
     </ClInclude>
-    <ClInclude Include="Header\RayCastComponent.h">
+    <ClInclude Include="Header\LineColliderComponent.h">
       <Filter>Engine\Components\SceneComponents\CollisionComponent\RayCastComponent</Filter>
     </ClInclude>
   </ItemGroup>
@@ -515,7 +515,7 @@
     <ClCompile Include="Src\RCollision.cpp">
       <Filter>Engine\BaseClass\Collision\Rcollision</Filter>
     </ClCompile>
-    <ClCompile Include="Src\RayCastComponent.cpp">
+    <ClCompile Include="Src\LineColliderComponent.cpp">
       <Filter>Engine\Components\SceneComponents\CollisionComponent\RayCastComponent</Filter>
     </ClCompile>
   </ItemGroup>

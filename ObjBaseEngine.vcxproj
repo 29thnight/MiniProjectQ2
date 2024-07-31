@@ -59,7 +59,7 @@
     <ClInclude Include="Header\Object.h" />
     <ClInclude Include="Header\ObjectPtr.h" />
     <ClInclude Include="Header\Random.h" />
-    <ClInclude Include="Header\RayCastComponent.h" />
+    <ClInclude Include="Header\LineColliderComponent.h" />
     <ClInclude Include="Header\RCollision.h" />
     <ClInclude Include="Header\RenderComponent.h" />
     <ClInclude Include="Header\RigidBodyComponent.h" />
@@ -92,7 +92,7 @@
     <ClCompile Include="Src\CollisionComponent.cpp" />
     <ClCompile Include="Src\CollisionManager.cpp" />
     <ClCompile Include="Src\InputMapping.cpp" />
-    <ClCompile Include="Src\RayCastComponent.cpp" />
+    <ClCompile Include="Src\LineColliderComponent.cpp" />
     <ClCompile Include="Src\RCollision.cpp" />
     <ClCompile Include="Src\RigidBodyComponent.cpp" />
     <ClCompile Include="Src\State.cpp" />

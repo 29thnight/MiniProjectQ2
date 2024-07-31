@@ -4,11 +4,11 @@
 
 namespace Engine
 {
-	class RayCastComponent : public CollisionComponent
+	class LineColliderComponent : public CollisionComponent
 	{
 	protected:
-		explicit RayCastComponent() = default;
-		virtual ~RayCastComponent() = default;
+		explicit LineColliderComponent() = default;
+		virtual ~LineColliderComponent() = default;
 
 	public:
 		virtual bool InitializeComponent() override;
@@ -29,7 +29,7 @@ namespace Engine
 		void Destroy() override;
 
 	public:
-		static RayCastComponent* Create();
+		static LineColliderComponent* Create();
 
 	protected:
 		RCollision* _pCollision{ nullptr };
