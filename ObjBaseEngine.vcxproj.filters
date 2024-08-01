@@ -223,6 +223,9 @@
     <Filter Include="Engine\BaseClass\Collision\Rcollision">
       <UniqueIdentifier>{6f0aa12b-aa9b-45f7-b942-0604b4b1e466}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Utility\WinUtility">
+      <UniqueIdentifier>{0316e932-ad14-4118-91dd-66a3afa94c66}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\CoreDefine.h">
@@ -405,6 +408,12 @@
     <ClInclude Include="Header\LineColliderComponent.h">
       <Filter>Engine\Components\SceneComponents\CollisionComponent\RayCastComponent</Filter>
     </ClInclude>
+    <ClInclude Include="Header\WinUtility.h">
+      <Filter>Engine\Utility\WinUtility</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\MainEntry.cpp">
@@ -518,5 +527,13 @@
     <ClCompile Include="Src\LineColliderComponent.cpp">
       <Filter>Engine\Components\SceneComponents\CollisionComponent\RayCastComponent</Filter>
     </ClCompile>
+    <ClCompile Include="Src\WinUtility.cpp">
+      <Filter>Engine\Utility\WinUtility</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ObjBaseEngine.rc">
+      <Filter>Engine</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

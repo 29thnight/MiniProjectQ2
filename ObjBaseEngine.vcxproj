@@ -78,7 +78,9 @@
     <ClInclude Include="Header\TimeManager.h" />
     <ClInclude Include="Header\Transform.h" />
     <ClInclude Include="Header\Vector2.h" />
+    <ClInclude Include="Header\WinUtility.h" />
     <ClInclude Include="Header\World.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\ACollision.cpp" />
@@ -117,7 +119,11 @@
     <ClCompile Include="Src\TextureManager.cpp" />
     <ClCompile Include="Src\TimeManager.cpp" />
     <ClCompile Include="Src\Transform.cpp" />
+    <ClCompile Include="Src\WinUtility.cpp" />
     <ClCompile Include="Src\World.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ObjBaseEngine.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
