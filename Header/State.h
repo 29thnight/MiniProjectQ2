@@ -8,7 +8,7 @@ namespace Engine
 	CORECLASS()
 	class State : public CoreBase
 	{
-	protected:
+	public:
 		explicit State() = default;
 		virtual ~State() = default;
 
@@ -23,6 +23,8 @@ namespace Engine
 		void OnUpdateState(_float deltaSeconds);
 		void OnExitState();
 
+
+		void SetStateName(const string& name) { stateName = name; }
 		void SetOwner(Actor* owner) { pOwner = owner; }
 		void SetStateID(int id) { stateID = id; }
 
@@ -41,5 +43,6 @@ namespace Engine
 		std::vector<StateTransition*> _transitions;
 		Actor*	pOwner{ nullptr };
 		int		stateID{ 0 };
+		string	stateName;
 	};
 }

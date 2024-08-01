@@ -27,8 +27,7 @@ namespace Engine
         void CheckTransitions();
         void SetCurrentState(State* state);
 
-		std::unordered_map<int, State*> _intStates;
-        std::unordered_map<string, State*> states;
+		std::unordered_map<int, State*> states;
         State* currentState = nullptr;
     };
 }

@@ -4,10 +4,10 @@
 
 void Engine::StateMachine::AddState(int stateNumber, string StateName)
 {
-	State* state = new State(StateName);
+	State* state = new State();
 	state->SetStateID(stateNumber);
+	state->SetStateName(StateName);
 	states[stateNumber] = state;
-	_vecStates.push_back(state);
 }
 
 void Engine::StateMachine::AddState(int stateNumber, State* state)
