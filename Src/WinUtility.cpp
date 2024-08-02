@@ -12,14 +12,14 @@ std::wstring WinUtility::GetOpenFilePath(const wchar_t* fileType)
 	{
 		OPENFILENAME ofn;
 		wchar_t filter[30];
-		const int len = wcslen(fileType);
+		const size_t len = wcslen(fileType);
 		wcscpy_s(filter, _ARRAYSIZE(filter), fileType);
 		wchar_t temp[20] = L"\0*.";
-		for (int i = 0; i < len + 1; i++)
+		for (size_t i = 0; i < len + 1; i++)
 		{
 			temp[i + 3] = fileType[i]; //널문자를 포함하는 문자열 이여서 전부 순회해야함
 		}
-		for (int i = 0; i < _ARRAYSIZE(temp) - 1; i++)
+		for (size_t i = 0; i < _ARRAYSIZE(temp) - 1; i++)
 		{
 			if (unsigned long long(i + len) == _ARRAYSIZE(filter))
 				break;
@@ -65,14 +65,14 @@ std::wstring WinUtility::GetSaveAsFilePath(const wchar_t* fileType)
 	{
 		OPENFILENAME ofn;
 		wchar_t filter[30];
-		const int len = wcslen(fileType);
+		const size_t len = wcslen(fileType);
 		wcscpy_s(filter, _ARRAYSIZE(filter), fileType);
 		wchar_t temp[20] = L"\0*.";
-		for (int i = 0; i < len + 1; i++)
+		for (size_t i = 0; i < len + 1; i++)
 		{
 			temp[i + 3] = fileType[i]; //널문자를 포함하는 문자열 이여서 전부 순회해야함
 		}
-		for (int i = 0; i < _ARRAYSIZE(temp) - 1; i++)
+		for (size_t i = 0; i < _ARRAYSIZE(temp) - 1; i++)
 		{
 			if (unsigned long long(i + len) == _ARRAYSIZE(filter))
 				break;
@@ -175,12 +175,12 @@ INT_PTR CALLBACK DialogProcInt(HWND hDlg, UINT message, WPARAM wParam, LPARAM lP
 int WinUtility::GetIntFromUser(LPCWSTR title, LPCWSTR text)
 {
 	DialogDataInt data = { title, text };
-	int reslut = DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_INPUT_INT_DIALOG), Management->setting.hWnd, DialogProcInt, (LPARAM)&data);
+	int result = (int)DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_INPUT_INT_DIALOG), Management->setting.hWnd, DialogProcInt, (LPARAM)&data);
 	if (auto error = GetLastError())
 	{
 		assert(false);
 	}
-	return reslut;
+	return result;
 }
 
 

@@ -2,12 +2,13 @@
 #include <SceneComponent.h>
 #include <Actor.h>
 #include <Mathf.h>
+#include <TimeManager.h>
 
-void Engine::RigidBodyComponent::TickComponent(_float deltaSeconds)
+void Engine::RigidBodyComponent::TickComponent(_duration deltaSeconds)
 {
 	_acceleration = _force / _mass;
 
-	_velocity += _acceleration * deltaSeconds;
+	_velocity += _acceleration * Time->NanoToSeconds(deltaSeconds);
 
 	if(_isGrounded)
 	{
@@ -17,7 +18,7 @@ void Engine::RigidBodyComponent::TickComponent(_float deltaSeconds)
 	}
 	else
 	{
-		_velocity += _gravity * _gravityFactor * deltaSeconds;
+		_velocity += _gravity * _gravityFactor * Time->NanoToSeconds(deltaSeconds);
 	}
 
 	Mathf::Vector2 gravity = _gravity;
@@ -37,7 +38,7 @@ void Engine::RigidBodyComponent::TickComponent(_float deltaSeconds)
 
 	if(_velocity != UnitVector::Zero)
 	{
-		Mathf::Vector2 friction = _velocity.Normalize() * -1.f * _friction * _mass * deltaSeconds;
+		Mathf::Vector2 friction = _velocity.Normalize() * -1.f * _friction * _mass * Time->NanoToSeconds(deltaSeconds);
 
 		if(_velocity.Length < friction.Length)
 		{
@@ -49,7 +50,7 @@ void Engine::RigidBodyComponent::TickComponent(_float deltaSeconds)
 		}
 	}
 
-	_owner->GetRootComponent()->AddRelativeLocation(_velocity * deltaSeconds);
+	_owner->GetRootComponent()->AddRelativeLocation(_velocity * Time->NanoToSeconds(deltaSeconds));
 	_owner->GetRootComponent()->SetVelocity(_velocity);
 
 	_force = UnitVector::Zero;

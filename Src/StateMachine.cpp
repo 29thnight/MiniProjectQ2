@@ -34,7 +34,7 @@ void Engine::StateMachine::SetCurrentState(int index)
     }
 }
 
-void Engine::StateMachine::UpdateCurrentState(_float deltaSeconds)
+void Engine::StateMachine::UpdateCurrentState(_duration deltaSeconds)
 {
     if (currentState != nullptr) 
     {

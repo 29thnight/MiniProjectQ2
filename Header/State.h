@@ -20,7 +20,7 @@ namespace Engine
 		virtual void SerializeOut(nlohmann::ordered_json& object) {};
 
 		void OnEnterState();
-		void OnUpdateState(_float deltaSeconds);
+		void OnUpdateState(_duration deltaSeconds);
 		void OnExitState();
 
 
@@ -36,7 +36,7 @@ namespace Engine
 
 	public:
 		Delegate<>		 OnEnter;
-		Delegate<_float> OnUpdate;
+		Delegate<_duration> OnUpdate;
 		Delegate<>       OnExit;
 
 	private:

@@ -21,7 +21,7 @@ bool Engine::BoxComponent::InitializeComponent()
 	return true;
 }
 
-void Engine::BoxComponent::TickComponent(_float deltaSeconds)
+void Engine::BoxComponent::TickComponent(_duration deltaSeconds)
 {
 	SceneComponent::TickComponent(deltaSeconds);
 	Mathf::Vector2 worldLocation = GetWorldLocation();

@@ -133,9 +133,6 @@
     <Filter Include="Engine\Components\SceneComponents\BitmapComponent">
       <UniqueIdentifier>{e973a82b-957b-4b79-b526-ad1c317aa94e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Components\SceneComponents\AnimationComponent">
-      <UniqueIdentifier>{bb01456a-7214-4914-b807-1e49e52ed4c8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Components\SceneComponents\CameraComponent">
       <UniqueIdentifier>{b5a1ff23-0ea6-4d27-851b-1914dc55753b}</UniqueIdentifier>
     </Filter>
@@ -225,6 +222,12 @@
     </Filter>
     <Filter Include="Engine\Utility\WinUtility">
       <UniqueIdentifier>{0316e932-ad14-4118-91dd-66a3afa94c66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\BaseClass\Resource\Animation">
+      <UniqueIdentifier>{a16b2d33-d1ed-40d3-b6e8-02004fb0bec8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Components\SceneComponents\AnimationComponent">
+      <UniqueIdentifier>{bb01456a-7214-4914-b807-1e49e52ed4c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -414,6 +417,9 @@
     <ClInclude Include="resource.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Header\Animation.h">
+      <Filter>Engine\BaseClass\Resource\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\MainEntry.cpp">
@@ -529,6 +535,9 @@
     </ClCompile>
     <ClCompile Include="Src\WinUtility.cpp">
       <Filter>Engine\Utility\WinUtility</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Animation.cpp">
+      <Filter>Engine\BaseClass\Resource\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

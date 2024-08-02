@@ -15,7 +15,7 @@ namespace Engine
 	public:
 		virtual bool InitializeComponent() override;
 		virtual void BeginPlay() override;
-		virtual void TickComponent(_float deltaSeconds) override;
+		virtual void TickComponent(_duration deltaSeconds) override;
 		virtual void EndPlay() override;
 		virtual void Destroy() override{};
 

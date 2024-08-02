@@ -143,6 +143,25 @@ void Engine::SoundManager::SetPan(int channel, float pan)
 	_channelGroups[channel]->setPan(pan);
 }
 
+_uint Engine::SoundManager::GetPosition(int channel)
+{
+	if (channel < 0 || channel >= _maxChannels) 
+	{
+        return 0;  // 잘못된 채널 번호 처리
+    }
+
+    _uint position = 0;
+    FMOD::Channel* pChannel = nullptr;
+    _channelGroups[channel]->getChannel(0, &pChannel);
+
+    if (pChannel)
+	{
+        pChannel->getPosition(&position, FMOD_TIMEUNIT_MS);
+    }
+
+    return position;
+}
+
 void Engine::SoundManager::Destroy()
 {
 	for (auto& sound : _sounds)

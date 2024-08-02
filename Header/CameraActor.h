@@ -20,7 +20,7 @@ namespace Engine
 	public:
 		//Actor
 		virtual void BeginPlay() override {};
-		virtual void Tick(_float deltaSeconds) override;
+		virtual void Tick(_duration deltaSeconds) override;
 		virtual void Fixed() override {};
 		virtual void EndPlay() override {};
 		CameraComponent* GetCameraComponent() { return _cameraComponent; }

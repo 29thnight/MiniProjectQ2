@@ -55,7 +55,7 @@ bool Engine::World::BeginPlay()
 	return true;
 }
 
-void Engine::World::Tick(_float deltaSeconds)
+void Engine::World::Tick(_duration deltaSeconds)
 {
 	if(_pCameraActor)
 	{
@@ -104,7 +104,9 @@ Engine::Level* Engine::World::GetLevel(int levelIndex) const
 
 void Engine::World::ContainLevel(Level* pLevel)
 {
+	pLevel->SetWorld(this);
 	_vecLevels.push_back(pLevel);
+	pLevel->BeginPlay();
 }
 
 void Engine::World::RemoveLevel(int levelIndex)

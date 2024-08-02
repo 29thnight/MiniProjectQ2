@@ -11,7 +11,7 @@ namespace Engine
 		virtual ~TextRenderComponent() = default;
 
 	public:
-		virtual void TickComponent(_float deltaSeconds) override;
+		virtual void TickComponent(_duration deltaSeconds) override;
 		virtual void Render(_RenderTarget pRenderTarget) override;
 
 	public:

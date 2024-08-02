@@ -38,6 +38,7 @@ namespace Engine
 
 	public:
 		void SetPan(int channel, float pan);
+		_uint GetPosition(int channel);
 
 	public:
 		virtual void Destroy() override;

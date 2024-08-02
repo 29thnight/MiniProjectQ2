@@ -2,6 +2,7 @@
 #include <Texture.h>
 #include <CoreManager.h>
 #include <TextureManager.h>
+#include <Animation.h>
 
 namespace file = std::filesystem;
 
@@ -21,22 +22,46 @@ bool Engine::TextureManager::LoadTexture(LPCWSTR filePath)
         else
         {
             file::path fullPath = entry.path();
+            std::wstring extension = fullPath.extension().wstring();
+            std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
 
-            std::wstring tag = fullPath.parent_path().wstring();
-			tag = tag.substr(tag.find_last_of(L"/") + 1);
-			std::replace(tag.begin(), tag.end(), L'\\', L'/');
-
-            Texture* pTexture = _textures[tag].Get();
-
-            if (nullptr == pTexture)
+            if (extension == L".png" || extension == L".jpg" || extension == L".jpeg" || extension == L".bmp")
             {
-                pTexture = Texture::Create();
-                pTexture->LoadTexture(fullPath.wstring().c_str());
-                _textures[tag] = pTexture;
+                std::wstring tag = fullPath.parent_path().wstring();
+                tag = tag.substr(tag.find_last_of(L"/") + 1);
+                std::replace(tag.begin(), tag.end(), L'\\', L'/');
+
+                Texture* pTexture = _textures[tag].Get();
+
+                if (nullptr == pTexture)
+                {
+                    pTexture = Texture::Create();
+                    pTexture->LoadTexture(fullPath.wstring().c_str());
+                    _textures[tag] = pTexture;
+                }
+                else
+                {
+                    pTexture->LoadTexture(fullPath.wstring().c_str());
+                }
             }
-            else
+			else if (extension == L".json")
             {
-                pTexture->LoadTexture(fullPath.wstring().c_str());
+                std::wstring tag = fullPath.parent_path().wstring();
+                tag = tag.substr(tag.find_last_of(L"/") + 1);
+                std::replace(tag.begin(), tag.end(), L'\\', L'/');
+
+				Animation* pAnimation = _animations[tag].Get();
+
+				if (nullptr == pAnimation)
+				{
+					pAnimation = Animation::Create();
+					pAnimation->LoadAnimation(fullPath.wstring().c_str());
+					_animations[tag] = pAnimation;
+				}
+				else
+				{
+					pAnimation->LoadAnimation(fullPath.wstring().c_str());
+				}
             }
         }
     }
@@ -49,7 +74,13 @@ Engine::Texture* Engine::TextureManager::FindTexture(_pwstring fileTag)
     return _textures[fileTag].Get();
 }
 
+Engine::Animation* Engine::TextureManager::FindAnimation(_pwstring fileTag)
+{
+	return _animations[fileTag].Get();
+}
+
 void Engine::TextureManager::Destroy()
 {
+	_animations.clear();
 	_textures.clear();
 }

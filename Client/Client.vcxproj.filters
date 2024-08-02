@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ClientEntry">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="ClientWorld">
+      <UniqueIdentifier>{b95d0948-bee1-478c-866b-dcfb944bf102}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ClientLevel">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="TestActor">
+      <UniqueIdentifier>{16a82e92-bf3a-4e08-aae7-6301de18f368}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header\ClientEntry.h">
+      <Filter>ClientEntry</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\ClientWorld.h">
+      <Filter>ClientWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\TestActor.h">
+      <Filter>TestActor</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\ClientLevel.h">
+      <Filter>ClientLevel</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\ClientEntry.cpp">
+      <Filter>ClientEntry</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ClientWorld.cpp">
+      <Filter>ClientWorld</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\TestActor.cpp">
+      <Filter>TestActor</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ClientLevel.cpp">
+      <Filter>ClientLevel</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

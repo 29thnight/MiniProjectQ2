@@ -2,7 +2,7 @@
 #include <FontManager.h>
 #include <TextRenderComponent.h>
 
-void Engine::TextRenderComponent::TickComponent(_float deltaSeconds)
+void Engine::TextRenderComponent::TickComponent(_duration deltaSeconds)
 {
 	SceneComponent::TickComponent(deltaSeconds);
 }

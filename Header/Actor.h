@@ -17,7 +17,7 @@ namespace Engine
 
 	public:
 		virtual void BeginPlay() abstract;
-		virtual void Tick(_float deltaSeconds) abstract;
+		virtual void Tick(_duration deltaSeconds) abstract;
 		virtual void Fixed() abstract;
 		virtual void EndPlay() abstract;
 		virtual void NotifyActorBlock(CollisionData data) override {};
@@ -90,6 +90,11 @@ namespace Engine
 		size_t GetTextureSize() const { return _vecTextures.size(); }
 		Texture* GetFrame(int index) const { return _vecTextures[index]; }
 
+	public:
+		void AddAnimation(Animation* pAnimation) { _vecAnimations.push_back(pAnimation); }
+		size_t GetAnimationSize() const { return _vecAnimations.size(); }
+		Animation* GetAnimation(int index) const { return _vecAnimations[index]; }
+
 	protected:
 		void PushBackComponent(ActorComponent* pComponent);
 
@@ -98,13 +103,14 @@ namespace Engine
 
 	protected:
 		SceneComponent*	_pRootComponent{ nullptr };
-		Actor*			_pParent{ nullptr };
-		World*			_pOwnerWorld{ nullptr };
-		int				_layerIndex{ 0 };
+		Actor*						_pParent{ nullptr };
+		World*						_pOwnerWorld{ nullptr };
+		int							_layerIndex{ 0 };
 
 	protected:
 		std::vector<Actor*>						_vecChildren;
 		std::vector<ObjectPtr<ActorComponent>>	_vecComponents;
 		std::vector<Texture*>					_vecTextures;
+		std::vector<Animation*>					_vecAnimations;
 	};
 }

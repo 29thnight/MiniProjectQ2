@@ -28,6 +28,8 @@
     struct InputValue;              \
     __interface IColliderReceiver;  \
 	__interface IInputAction;       \
+	class Animation;                 \
+	class CoreBase;                 \
     class ACollision;               \
     class RCollision;               \
 	class SCollision;               \
@@ -54,6 +56,7 @@
     class InputManager;             \
 	class FontManager;              \
     class InputAction;              \
+	class AnimationComponent;       \
     class ActorComponent;           \
     class StateComponent;		    \
 	class InputComponent;           \
@@ -62,6 +65,66 @@
 	class RenderComponent;          \
 	class BitmapComponent;          \
 	class SceneComponent;
+
+//////////////////////////////////////////////
+// Define wWinMain Release                  //
+//////////////////////////////////////////////
+#define DEFINE_WWINMAIN_RELEASE(GAME_SETTINGS_PATH) \
+int APIENTRY wWinMain(_In_ HINSTANCE hInstance, \
+	_In_opt_ HINSTANCE hPrevInstance, \
+	_In_ LPWSTR lpszCmdParam, \
+	_In_ int nCmdShow) \
+{ \
+	\
+	\
+	UNREFERENCED_PARAMETER(hPrevInstance); \
+	UNREFERENCED_PARAMETER(lpszCmdParam); \
+	\
+	Client::ClientEntry winApp; \
+	\
+	winApp.CreateWorld(); \
+	\
+    Engine::GameSettings gameSetting{}; \
+    \
+    gameSetting.hInstance = hInstance; \
+	gameSetting.pWorld = winApp.ContainWorld(); \
+	winApp.LoadGameSettings(GAME_SETTINGS_PATH, gameSetting); \
+	EngineInititalize(winApp, gameSetting); \
+	\
+	\
+	return EXIT_SUCCESS; \
+}
+
+//////////////////////////////////////////////
+// Define wWinMain Debug				    //
+//////////////////////////////////////////////
+#define DEFINE_WWINMAIN_DEBUG(DEBUG_LINE,GAME_SETTINGS_PATH) \
+int APIENTRY wWinMain(_In_ HINSTANCE hInstance, \
+	_In_opt_ HINSTANCE hPrevInstance, \
+	_In_ LPWSTR lpszCmdParam, \
+	_In_ int nCmdShow) \
+{ \
+	\
+	_CrtSetBreakAlloc(DEBUG_LINE); \
+	\
+	UNREFERENCED_PARAMETER(hPrevInstance); \
+	UNREFERENCED_PARAMETER(lpszCmdParam); \
+	\
+	Client::ClientEntry winApp; \
+	\
+	winApp.CreateWorld(); \
+	\
+    Engine::GameSettings gameSetting{}; \
+    \
+    gameSetting.hInstance = hInstance; \
+	gameSetting.pWorld = winApp.ContainWorld(); \
+	winApp.LoadGameSettings(GAME_SETTINGS_PATH, gameSetting); \
+	EngineInititalize(winApp, gameSetting); \
+	\
+	_CrtDumpMemoryLeaks(); \
+	\
+	return EXIT_SUCCESS; \
+}
 
 //////////////////////////////////////////////
 // Define Entry Code                        //

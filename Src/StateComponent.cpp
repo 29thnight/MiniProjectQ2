@@ -14,7 +14,7 @@ void Engine::StateComponent::BeginPlay()
 {
 }
 
-void Engine::StateComponent::TickComponent(_float deltaSeconds)
+void Engine::StateComponent::TickComponent(_duration deltaSeconds)
 {
 	_stateMachine->UpdateCurrentState(deltaSeconds);
 }
@@ -38,7 +38,7 @@ void Engine::StateComponent::SetCurrentState(int stateNumber)
 	_stateMachine->SetCurrentState(stateNumber);
 }
 
-void Engine::StateComponent::UpdateCurrentState(_float deltaSeconds)
+void Engine::StateComponent::UpdateCurrentState(_duration deltaSeconds)
 {
 	_stateMachine->UpdateCurrentState(deltaSeconds);
 }

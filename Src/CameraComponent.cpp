@@ -2,7 +2,7 @@
 #include <CoreManager.h>
 #include <ACollision.h>
 
-void Engine::CameraComponent::TickComponent(_float deltaSeconds)
+void Engine::CameraComponent::TickComponent(_duration deltaSeconds)
 {
 	SceneComponent::TickComponent(deltaSeconds);
 

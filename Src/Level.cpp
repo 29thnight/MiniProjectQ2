@@ -7,7 +7,7 @@
 #include <CameraActor.h>
 #include <Mathf.h>
 
-void Engine::Level::Tick(_float deltaSeconds)
+void Engine::Level::Tick(_duration deltaSeconds)
 {
 	if(_actors.empty())
 		return;

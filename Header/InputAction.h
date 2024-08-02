@@ -25,7 +25,7 @@ namespace Engine
 
 	public:
 		virtual void Entered() override abstract;
-		virtual void Triggers(_float deltaSeconds) override abstract;
+		virtual void Triggers(_duration deltaSeconds) override abstract;
 		virtual void Completed() override abstract;
 
 	public:

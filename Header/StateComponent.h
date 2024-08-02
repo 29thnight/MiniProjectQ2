@@ -15,7 +15,7 @@ namespace Engine
 	public:
 		virtual bool InitializeComponent() override;
 		virtual void BeginPlay() override;
-		virtual void TickComponent(_float deltaSeconds) override;
+		virtual void TickComponent(_duration deltaSeconds) override;
 		virtual void EndPlay() override;
 
 	public:
@@ -45,7 +45,7 @@ namespace Engine
 		void AddState(int stateNumber, State* state);
 		State* GetState(int stateNumber);
 		void SetCurrentState(int stateNumber);
-		void UpdateCurrentState(_float deltaSeconds);
+		void UpdateCurrentState(_duration deltaSeconds);
 
 		void AddTransition(int stateNumber, StateTransition* transition);
 		const std::vector<StateTransition*>& GetTransitions(int stateNumber) const;

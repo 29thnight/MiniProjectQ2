@@ -12,7 +12,7 @@ namespace Engine
         void AddState(int stateNumber, State* state);
         State* GetState(int index);
         void SetCurrentState(int index);
-        void UpdateCurrentState(_float deltaSeconds);
+        void UpdateCurrentState(_duration deltaSeconds);
 		State* GetCurrentState() const { return currentState; }
 
     public:

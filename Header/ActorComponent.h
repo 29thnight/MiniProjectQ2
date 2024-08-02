@@ -14,7 +14,7 @@ namespace Engine
 	public:
 		virtual bool InitializeComponent() abstract;
 		virtual void BeginPlay() abstract;
-		virtual void TickComponent(_float deltaSeconds) abstract;
+		virtual void TickComponent(_duration deltaSeconds) abstract;
 		virtual void EndPlay() abstract;
 
 	public:

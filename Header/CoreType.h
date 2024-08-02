@@ -18,6 +18,8 @@ typedef ID2D1SolidColorBrush*	Brush;
 typedef _bstr_t					string;
 typedef D2D1::ColorF			Color;
 
+using _duration = std::chrono::nanoseconds;
+
 //template<typename ComType>
 //using SmartPtr = Microsoft::WRL::ComPtr<ComType>;
 template<typename ComType>

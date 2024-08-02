@@ -6,18 +6,20 @@
 #include <ACollision.h>
 #include <CoreDefine.h>
 #include <CsvLoader.h>
+#include <TimeManager.h>
+#include <Animation.h>
 
 #undef min
 #undef max
 
-void Engine::AnimationComponent::TickComponent(_float deltaSeconds)
+void Engine::AnimationComponent::TickComponent(_duration deltaSeconds)
 {
 	SceneComponent::TickComponent(deltaSeconds);
 
 	if (_isVisible == false) { return; }
 	if (0 == _currentFrame) { _isFrameEnd = false; }
 
-	_currentFrameTime += deltaSeconds;
+	_currentFrameTime += Time->NanoToSeconds(deltaSeconds);
 	
 	if (_currentFrameTime >= _frameTime)
 	{
@@ -48,9 +50,9 @@ void Engine::AnimationComponent::Render(_RenderTarget pRenderTarget)
 {
 	if (_isVisible == false) { return; }
 
-	Texture* pTexture = GetOwner()->GetFrame(_currentClipIndex);
+	Animation* pAnimation = GetOwner()->GetAnimation(_currentClipIndex);
 
-	SetTextureRect(pTexture);
+	SetAnimationRect(pAnimation);
 
 	SetBitmapLocalTransform();
 
@@ -70,21 +72,32 @@ void Engine::AnimationComponent::Render(_RenderTarget pRenderTarget)
 
 	pRenderTarget->SetTransform(Transform);
 
-	pRenderTarget->DrawBitmap((*pTexture)[_currentFrame]);
+	pRenderTarget->DrawBitmap((*pAnimation)[_currentFrame]);
 
 	pRenderTarget->SetTransform(Matx::Identity);
 }
 
+void Engine::AnimationComponent::SetAnimationRect(Animation* pAnimation)
+{
+	Mathf::SizeF size = pAnimation->GetCanvasSize();
+
+	_textureRect = Mathf::RectF{ 0, 0, size.width, size.height };
+}
+
 void Engine::AnimationComponent::AllAddClipThisActor()
 {
-	string BasePath = (string)"Assets/" + GetOwner()->GetName();
-	string convertDataName = BasePath + "/Clips.csv";
-	CSVReader<std::string, float, bool> csvReader((_pstring)convertDataName);
+	string ownerName = GetOwner()->GetName();
+	_pwstring convertOwnerName = ownerName;
 
-	csvReader.forEach([&](std::string clipName, float frameTime, bool isLoop)
+	for (const auto& [tag, animation] : TextureMgr->GetAnimations())
+	{
+		if (tag.find(convertOwnerName) != std::string::npos)
 		{
-			AddClip(clipName.c_str(), frameTime, isLoop);
-		});
+			std::wstring clipName = tag.substr(tag.find_last_of(L"/") + 1);
+			string convertClipName = clipName.c_str();
+			AddClip(convertClipName, 0.1f, true);
+		}
+	}
 }
 
 void Engine::AnimationComponent::AddClip(_pstring clipName, _float frameTime, bool isLoop)
@@ -95,17 +108,19 @@ void Engine::AnimationComponent::AddClip(_pstring clipName, _float frameTime, bo
 		_isInLayer = true;
 	}
 
-	AnimationClip* pClip = new AnimationClip(clipName);
-	pClip->frameTime = frameTime;
-	pClip->clipIndex = (int)GetOwner()->GetTextureSize();
-	pClip->isLoop = isLoop;
-
-	_vecClips[clipName] = std::move(pClip);
 	string convertOwnerName = (string)"Assets/" + GetOwner()->GetName();
 	string convertName = clipName;
 	string textureName = convertOwnerName + "/" + convertName;
-	
-	GetOwner()->AddTexture(TextureMgr->FindTexture(textureName));
+
+	Animation* pAnimation = TextureMgr->FindAnimation(textureName);
+	AnimationClip* pClip = new AnimationClip(clipName);
+	pClip->frameTime = frameTime;
+	pClip->clipIndex = _indexCount++;
+	pClip->maxFrame = pAnimation->size();
+	pClip->isLoop = isLoop;
+
+	_vecClips[clipName] = std::move(pClip);
+	GetOwner()->AddAnimation(pAnimation);
 }
 
 const bool Engine::AnimationComponent::IsClipPlay(_pstring clipName) const
@@ -137,12 +152,13 @@ void Engine::AnimationComponent::SetPlayClip(_pstring clipName)
 {
 	_currentClipName = clipName;
 	_currentClipIndex = _vecClips[clipName]->clipIndex;
+	_frameCount = _vecClips[clipName]->maxFrame;
 	_frameTime = _vecClips[clipName]->frameTime;
 	_isLoop = _vecClips[clipName]->isLoop;
 
-	Texture* pTexture = GetOwner()->GetFrame(_currentClipIndex);
+	Animation* pAnimation = GetOwner()->GetAnimation(_currentClipIndex);
 
-	_frameCount = (int)pTexture->size();
+	_frameCount = (int)pAnimation->size();
 
 	_currentFrame = 0;
 	_prevFrame = 0;
@@ -155,7 +171,9 @@ void Engine::AnimationComponent::RemoveClip(_pstring clipName)
 
 bool Engine::AnimationComponent::InitializeComponent()
 {
-    return BitmapComponent::InitializeComponent();
+	AllAddClipThisActor();
+
+    return true;
 }
 
 void Engine::AnimationComponent::Destroy()

@@ -28,7 +28,7 @@ namespace Engine
 
 	public:
 		virtual bool BeginPlay() PURE;
-		virtual void Tick(_float deltaSeconds);
+		virtual void Tick(_duration deltaSeconds);
 		virtual void Fixed();
 		virtual void Render(_RenderTarget pRenderTarget);
 		virtual void EndPlay();
@@ -43,7 +43,6 @@ namespace Engine
 		T* AddLevel()
 		{
 			T* pLevel = T::Create();
-			pLevel->SetWorld(this);
 			ContainLevel(pLevel);
 			return pLevel;
 		}

@@ -22,6 +22,7 @@
     <ClInclude Include="Header\ACollision.h" />
     <ClInclude Include="Header\Actor.h" />
     <ClInclude Include="Header\ActorComponent.h" />
+    <ClInclude Include="Header\Animation.h" />
     <ClInclude Include="Header\AnimationComponent.h" />
     <ClInclude Include="Header\AssetManager.h" />
     <ClInclude Include="Header\BitmapComponent.h" />
@@ -85,6 +86,7 @@
   <ItemGroup>
     <ClCompile Include="Src\ACollision.cpp" />
     <ClCompile Include="Src\Actor.cpp" />
+    <ClCompile Include="Src\Animation.cpp" />
     <ClCompile Include="Src\AnimationComponent.cpp" />
     <ClCompile Include="Src\AssetManager.cpp" />
     <ClCompile Include="Src\BitmapComponent.cpp" />
@@ -180,7 +182,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PublicIncludeDirectories>
     </PublicIncludeDirectories>
-    <LibraryPath>../ThirdParty/FMOD/lib/x64/;$(LibraryPath)</LibraryPath>
+    <LibraryPath>../ThirdParty/Rlottie/lib/;../ThirdParty/FMOD/lib/x64/;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)/ThirdParty/Rlottie/inc/;$(SolutionDir)/ThirdParty/FMOD/inc/;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -237,6 +240,8 @@
     <Lib>
       <AdditionalDependencies>
       </AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

@@ -13,7 +13,6 @@ namespace Engine
 
 	private:
 		using DestroyList = std::deque<Object*>;
-		using Elapsed = float;
 
 	private:
 		explicit CoreManager();
@@ -92,7 +91,7 @@ namespace Engine
 	private:
 		DestroyList	 _toBeDestroyed;
 		GameSettings _gameSettings;
-		Elapsed		 _elapsedTick{ 0.f };
+		_duration		 _elapsedTick{ 0 };
 		bool 		 _isDestroy{ false };
 	};
 }

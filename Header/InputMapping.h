@@ -28,7 +28,7 @@ namespace Engine
 		void SetInputComponent(InputComponent* inputComponent) { _inputComponent = inputComponent; }
 
 		void ChangeAction(IInputAction* inputAction);
-		void CompareAndTriggerAction(_uint key, InputType type, _float deltaSeconds);
+		void CompareAndTriggerAction(_uint key, InputType type, _duration deltaSeconds);
 		void Destroy() override;
 
 	protected:

@@ -16,7 +16,7 @@ namespace Engine
 
 	public:
 		virtual bool BeginPlay() PURE;
-		virtual void Tick(_float deltaSeconds);
+		virtual void Tick(_duration deltaSeconds);
 		virtual void Fixed();
 		virtual void EndPlay();
 

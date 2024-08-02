@@ -2,6 +2,7 @@
 #include <InputManager.h>
 #include <InputComponent.h>
 #include <Actor.h>
+#include <TimeManager.h>
 
 bool Engine::InputComponent::InitializeComponent()
 {
@@ -10,7 +11,7 @@ bool Engine::InputComponent::InitializeComponent()
 	return true;
 }
 
-void Engine::InputComponent::TickComponent(_float deltaSeconds)
+void Engine::InputComponent::TickComponent(_duration deltaSeconds)
 {
 	if (_inputEvents.empty())
 		return;
@@ -22,7 +23,7 @@ void Engine::InputComponent::TickComponent(_float deltaSeconds)
 
 	if (9999.f > elapsedTick)
 	{
-		elapsedTick += deltaSeconds;
+		elapsedTick += Time->NanoToSeconds(deltaSeconds);
 	}
 }
 

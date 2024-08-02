@@ -21,7 +21,7 @@ bool Engine::LineColliderComponent::InitializeComponent()
 	return true;
 }
 
-void Engine::LineColliderComponent::TickComponent(_float deltaSeconds)
+void Engine::LineColliderComponent::TickComponent(_duration deltaSeconds)
 {
 	SceneComponent::TickComponent(deltaSeconds);
 	Mathf::Vector2 worldLocation = GetWorldLocation();

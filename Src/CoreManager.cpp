@@ -23,8 +23,6 @@ void Engine::CoreManager::Tick()
 	InputMgr->InputUpdate();
 	setting.pWorld->Tick(Time->DeltaSeconds);
 	_pCollisionManager->SimulateCollision();
-
-	float deltaSeconds = Time->DeltaSeconds;
 }
 
 void Engine::CoreManager::Fixed(int count)
@@ -35,9 +33,7 @@ void Engine::CoreManager::Fixed(int count)
 		return Terminate();
 	}
 		
-	_elapsedTick += Time->DeltaSeconds;
-
-	float fixedTick = 1.f / _elapsedTick;
+	auto fixedTick = std::chrono::nanoseconds(static_cast<int64_t>(1e9 / count));
 
 	if(_elapsedTick >= fixedTick)
 	{

@@ -1,6 +1,6 @@
 #include <TimeManager.h>
 
-constexpr float immediate{ 0.001f };
+constexpr auto immediate = std::chrono::nanoseconds{1000000};
 
 bool Engine::TimeManager::Initialize()
 {
@@ -13,7 +13,7 @@ void Engine::TimeManager::UpdateTick()
 {
 	auto currentTick = _clock::now();
 	_duration duration = currentTick - _prevTick;
-	_deltaSeconds = duration.count() * _timeScale;
+	_deltaSeconds = std::chrono::duration_cast<_duration>(duration * _timeScale);
 	_prevTick = currentTick;
 }
 
@@ -24,15 +24,20 @@ void Engine::TimeManager::SetTimeScale(_float timeScale)
 
 int Engine::TimeManager::GetFPS() const
 {
-	return static_cast<int>(round(1.f / _deltaSeconds));
+	return static_cast<int>(round(1e9 / _deltaSeconds.count()));
 }
 
-_float Engine::TimeManager::GetDeltaSeconds() const
+_duration Engine::TimeManager::GetDeltaSeconds() const
 {
-	if (100.f < _deltaSeconds)
-		return immediate;
+    if (_deltaSeconds > std::chrono::nanoseconds{100000000}) // 100 milliseconds in nanoseconds
+        return immediate;
 
-	return _deltaSeconds;
+    return _deltaSeconds;
+}
+
+_float Engine::TimeManager::NanoToSeconds(_duration duration) const
+{
+	return std::chrono::duration_cast<std::chrono::duration<float>>(duration).count();
 }
 
 _float Engine::TimeManager::GetTimeScale() const

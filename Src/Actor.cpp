@@ -13,7 +13,7 @@ void Engine::Actor::BeginPlay()
 	_vecTextures.push_back(TextureMgr->FindTexture(convertName));
 }
 
-void Engine::Actor::Tick(_float deltaSeconds)
+void Engine::Actor::Tick(_duration deltaSeconds)
 {
 	for (auto& component : _vecComponents)
 	{

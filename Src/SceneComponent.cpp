@@ -2,7 +2,7 @@
 #include <CoreManager.h>
 #include <Mathf.h>
 
-void Engine::SceneComponent::TickComponent(_float deltaSeconds)
+void Engine::SceneComponent::TickComponent(_duration deltaSeconds)
 {
 	UpdateTransform();
 	UpdateVelocity();

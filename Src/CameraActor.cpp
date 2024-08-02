@@ -6,8 +6,9 @@
 #include <ObjectPtr.h>
 #include <CoreBase.h>
 #include <ActorComponent.h>
+#include <TimeManager.h>
 
-void Engine::CameraActor::Tick(_float deltaSeconds)
+void Engine::CameraActor::Tick(_duration deltaSeconds)
 {
 	if (!_isTracking)
 		return;
@@ -28,7 +29,7 @@ void Engine::CameraActor::Tick(_float deltaSeconds)
 	Mathf::Vector2 cameraLocation = _cameraComponent->GetRelativeLocation();
 
 	Mathf::Vector2 targetLocation = ( parentLocation - cameraCenter - cameraOffset );
-	Mathf::Vector2 newLocation = Mathf::Lerp(cameraLocation, targetLocation, _cameraLerpFactor * deltaSeconds);
+	Mathf::Vector2 newLocation = Mathf::Lerp(cameraLocation, targetLocation, _cameraLerpFactor * Time->NanoToSeconds(deltaSeconds));
 
 	if (targetLocation != _oldLocation)
 	{

@@ -12,7 +12,7 @@ namespace Engine
 
 	public:
 		virtual bool InitializeComponent() override;
-		virtual void TickComponent(_float deltaSeconds) override;
+		virtual void TickComponent(_duration deltaSeconds) override;
 		virtual bool IsCollision(CollisionComponent* pOther) override;
 		virtual void Render(_RenderTarget pRenderTarget) override; //for debug draw
 

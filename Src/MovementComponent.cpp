@@ -2,6 +2,7 @@
 #include "SceneComponent.h"
 #include "Transform.h"
 #include "Actor.h"
+#include "TimeManager.h"
 
 #undef min
 #undef max
@@ -27,7 +28,7 @@ void Engine::MovementComponent::BeginPlay()
 
 }
 
-void Engine::MovementComponent::TickComponent(_float deltaSeconds)
+void Engine::MovementComponent::TickComponent(_duration deltaSeconds)
 {
 	if(!_pRootComponent)
 	{
@@ -36,7 +37,7 @@ void Engine::MovementComponent::TickComponent(_float deltaSeconds)
 
 	_ownerCurrentLocation = _pRootComponent->GetWorldLocation();
 
-	_velocity.y += _calculatedGravity * deltaSeconds;
+	_velocity.y += _calculatedGravity * Time->NanoToSeconds(deltaSeconds);
 	//std::cout << _velocity.y << std::endl;
 	if (_velocity.x > 0)
 	{
@@ -47,7 +48,7 @@ void Engine::MovementComponent::TickComponent(_float deltaSeconds)
 		_velocity.x = std::min(_velocity.x, _limitSpeed);
 	}
 
-	_pRootComponent->AddRelativeLocation(_velocity * deltaSeconds);
+	_pRootComponent->AddRelativeLocation(_velocity * Time->NanoToSeconds(deltaSeconds));
 	_pRootComponent->SetVelocity(_velocity);
 
 	_velocity.x *= _friction;

@@ -12,7 +12,7 @@ void Engine::InputMapping::ChangeAction(IInputAction* inputAction)
 	_currentAction->Entered();
 }
 
-void Engine::InputMapping::CompareAndTriggerAction(_uint key, InputType type, _float deltaSeconds)
+void Engine::InputMapping::CompareAndTriggerAction(_uint key, InputType type, _duration deltaSeconds)
 {
     for (auto& action : _actions)
     {

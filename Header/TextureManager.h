@@ -2,6 +2,7 @@
 #include <CoreDefine.h>
 #include <Singleton.h>
 #include <ObjectPtr.h>
+#include <Animation.h>
 
 namespace Engine
 {
@@ -13,6 +14,7 @@ namespace Engine
 
 	private:
 		using Textures = std::unordered_map<std::wstring, ObjectPtr<Texture>>;
+		using Animations = std::unordered_map<std::wstring, ObjectPtr<Animation>>;
 
 	private:
 		TextureManager() = default;
@@ -21,7 +23,9 @@ namespace Engine
 	public:
 		bool LoadTexture(LPCWSTR filePath);
 		Texture* FindTexture(_pwstring fileTag);
+		Animation* FindAnimation(_pwstring fileTag);
 		Textures& GetTextures() { return _textures; }
+		Animations& GetAnimations() { return _animations; }
 
 	public:
 		virtual void SerializeIn(nlohmann::ordered_json& object) {};
@@ -31,7 +35,8 @@ namespace Engine
 		void Destroy() override;
 
 	private:
-		Textures _textures;
+		Textures	_textures;
+		Animations	_animations;
 	};
 }
 

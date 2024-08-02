@@ -8,6 +8,7 @@ namespace Engine
 	{
 		string clipName{};
 		int clipIndex{};
+		int maxFrame{};
 		float frameTime{};
 		bool isLoop{};
 
