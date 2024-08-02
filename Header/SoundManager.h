@@ -51,7 +51,7 @@ namespace Engine
 		FMOD::System*									_pSystem{ nullptr };
 		FMOD::ChannelGroup*								_pMasterChannelGroup{ nullptr };
 		std::vector<FMOD::ChannelGroup*>				_channelGroups;
-		std::list<FMOD::Channel*>						_excuteChannels;
+		std::list<FMOD::Channel*>						_executeChannels;
 		std::unordered_map<std::string, FMOD::Sound*>	_sounds;
 		std::vector<FadeSound>							_fadeSounds;
 		int												_maxChannels{ 0 };

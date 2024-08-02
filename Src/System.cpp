@@ -4,6 +4,7 @@
 #include <TextureManager.h>
 #include <FontManager.h>
 #include <InputManager.h>
+#include <SoundManager.h>
 #include <World.h>
 #include <System.h>
 
@@ -38,6 +39,8 @@ bool Engine::System::Initialize(GameSettings&& gameSettings)
 	Graphics->Initialize();
 	InputMgr->Initialize();
 	TextureMgr->LoadTexture(L"Assets");
+	Sound->Initialize(Management->setting.maxSoundGroup);
+	Sound->LoadSound("Assets/Sound");
 	int layerSize = Management->setting.layerSize;
 	Management->setting.pWorld->InitializeWorld(layerSize);
 	Management->setting.pWorld->BeginPlay();

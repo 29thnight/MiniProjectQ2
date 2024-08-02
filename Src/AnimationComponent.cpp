@@ -114,10 +114,11 @@ void Engine::AnimationComponent::AddClip(_pstring clipName, _float frameTime, bo
 
 	Animation* pAnimation = TextureMgr->FindAnimation(textureName);
 	AnimationClip* pClip = new AnimationClip(clipName);
-	pClip->frameTime = frameTime;
+	pClip->frameTime = pAnimation->GetFrameRate();
 	pClip->clipIndex = _indexCount++;
 	pClip->maxFrame = pAnimation->size();
 	pClip->isLoop = isLoop;
+
 
 	_vecClips[clipName] = std::move(pClip);
 	GetOwner()->AddAnimation(pAnimation);

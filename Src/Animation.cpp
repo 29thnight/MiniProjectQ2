@@ -11,7 +11,7 @@ bool Engine::Animation::LoadAnimation(_pwstring fileName)
 
     _animation->size(_width, _height);
     _totalFrame = _animation->totalFrame();
-    _frameRate = _animation->frameRate();
+    _frameRate = 1 / _animation->frameRate();
 
     for (size_t frameNumber = 0; frameNumber < _totalFrame; ++frameNumber) 
     {

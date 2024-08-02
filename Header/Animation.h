@@ -21,6 +21,7 @@ namespace Engine
 		Mathf::SizeF GetCanvasSize() const;
 		size_t GetTotalFrame() const { return _totalFrame; }
 		std::shared_ptr<rlottie::Animation> GetRlottieAnimation() const { return _animation; }
+		_float GetFrameRate() const { return _frameRate; }
 
 	public:
 		virtual void SerializeIn(nlohmann::ordered_json& object) {};
@@ -40,5 +41,6 @@ namespace Engine
 		size_t _width{ };
 		size_t _height{ };
 		size_t _totalFrame{ };
+		bool   _isLoop{ false };
 	};
 };

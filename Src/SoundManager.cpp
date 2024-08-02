@@ -70,14 +70,14 @@ void Engine::SoundManager::Update(_float deltaTime)
 		_channelGroups[i]->setVolume(_fadeSounds[i].current);
 	}
 
-	for (auto& channel : _excuteChannels)
+	for (auto& channel : _executeChannels)
 	{
 		bool isPlaying = false;
 		channel->isPlaying(&isPlaying);
 
 		if (!isPlaying)
 		{
-			_excuteChannels.remove(channel);
+			_executeChannels.remove(channel);
 		}
 	}
 }
@@ -89,11 +89,11 @@ void Engine::SoundManager::PlaySound(const char* soundName, int channel, int loo
 	if(pSound)
 	{
 		FMOD::Channel* pChannel = nullptr;
-		_excuteChannels.push_back(pChannel);
+		_executeChannels.push_back(pChannel);
 
 		_pSystem->playSound(pSound, _channelGroups[channel], false, &pChannel);
 		pChannel->setLoopCount(loopCount);
-		_excuteChannels.push_back(pChannel);
+		_executeChannels.push_back(pChannel);
 	}
 }
 
