@@ -15,7 +15,7 @@ namespace Engine
 
 	public:
 		using _clock = std::chrono::high_resolution_clock;
-		using _duration = std::chrono::duration<float>;
+		using _duration = std::chrono::duration<std::chrono::nanoseconds>;
 		using _timePoint = std::chrono::high_resolution_clock::time_point;
 
 	public:
@@ -28,7 +28,7 @@ namespace Engine
 		virtual void SerializeOut(nlohmann::ordered_json& object) {};
 
 	public:
-		ReadOnly_Property(_float, DeltaSeconds)
+		ReadOnly_Property(std::chrono::nanoseconds, DeltaSeconds)
 		_Get(DeltaSeconds)
 		{
 			return GetDeltaSeconds();
@@ -42,16 +42,16 @@ namespace Engine
 
 	public:
 		int GetFPS() const;
-		_float GetDeltaSeconds() const;
-		_float GetTimeScale() const;
+		std::chrono::nanoseconds GetDeltaSeconds() const;
+		std::chrono::nanoseconds GetTimeScale() const;
 
 	private:
 		void Destroy() override;
 
 	private:
 		_timePoint _prevTick{};
-		float _deltaSeconds{ 0.f };
-		float _timeScale{ 1.0f };
+		std::chrono::nanoseconds _deltaSeconds{ 0.f };
+		std::chrono::nanoseconds _timeScale{ 1.0f };
 	};
 }
 
