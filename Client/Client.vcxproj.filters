@@ -44,4 +44,7 @@
       <Filter>ClientLevel</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\ObjBaseEngine.rc" />
+  </ItemGroup>
 </Project>
