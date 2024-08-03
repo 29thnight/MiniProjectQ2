@@ -44,7 +44,7 @@ bool Engine::TextureManager::LoadTexture(LPCWSTR filePath)
                     pTexture->LoadTexture(fullPath.wstring().c_str());
                 }
             }
-			else if (extension == L".metadata")
+			else if (extension == L".aasset")
             {
                 std::wstring tag = fullPath.parent_path().wstring();
                 tag = tag.substr(tag.find_last_of(L"/") + 1);

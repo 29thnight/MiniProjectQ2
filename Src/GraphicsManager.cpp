@@ -43,7 +43,7 @@ void Engine::GraphicsManager::Destroy()
 	CoUninitialize();
 }
 
-HRESULT Engine::GraphicsManager::InitializeD2D(HWND hWnd)
+HRESULT Engine::GraphicsManager::InitializeD2D(HWND hWnd, bool isEditor)
 {
 	HRESULT hresult{ S_FALSE };
 	hresult = CoInitialize(nullptr);
@@ -75,7 +75,15 @@ HRESULT Engine::GraphicsManager::InitializeD2D(HWND hWnd)
 	renderTargetProperties.pixelFormat.format = DXGI_FORMAT_UNKNOWN;
 	renderTargetProperties.pixelFormat.alphaMode = D2D1_ALPHA_MODE_PREMULTIPLIED;
 
-	D2D1_SIZE_U screenSize = D2D1::SizeU(Management->setting.width, Management->setting.height);
+	D2D1_SIZE_U screenSize{};
+	if(isEditor)
+	{
+		screenSize = D2D1::SizeU(1920U, 1080U);
+	}
+	else
+	{
+		screenSize = D2D1::SizeU(Management->setting.width, Management->setting.height);
+	}
 
 	hresult = _pD2DFactory->CreateHwndRenderTarget(renderTargetProperties, 
 		D2D1::HwndRenderTargetProperties(hWnd, screenSize, presentOptions), _pRenderTarget.GetAddressOf());

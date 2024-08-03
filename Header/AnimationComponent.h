@@ -16,12 +16,22 @@ namespace Engine
 		virtual void Render(_RenderTarget pRenderTarget) override;
 		void SetAnimationRect(Animation* pAnimation);
 		void AllAddClipThisActor();
-		void AddClip(_pstring clipName, bool isLoop = false);
+		void AddClip(_pstring clipName);
 		const bool IsClipPlay(_pstring clipName) const;
 		const bool IsClipEnd(_pstring clipName) const;
 		const bool IsFrameEnd() const;
 		void SetPlayClip(_pstring clipName);
 		void RemoveClip(_pstring clipName);
+
+	public:
+		void EditorAddClip(Animation* pAnimation, bool isLoop = false);
+		void InEditMode();
+		void OutEditMode();
+		void EditorSetFrame(_int frame);
+		void EditorNextFrame();
+		void EditorPrevFrame();
+		bool IsEditMode() const;
+		int GetCurrentFrame() const;
 
 	public:
 		virtual void SerializeIn(nlohmann::ordered_json& object) {};
@@ -37,6 +47,7 @@ namespace Engine
 		std::unordered_map<std::string, AnimationClip*> _vecClips;
 
 	private:
+		Animation* _pAnimation{};
 		_pstring _currentClipName{};
 
 	private:
@@ -54,5 +65,6 @@ namespace Engine
 		bool	 _isLoop{ false };
 		bool	 _isInLayer{ false };
 		bool	 _isFrameEnd{ false };
+		bool     _isEditMode{ false };
 	};
 }

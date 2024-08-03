@@ -18,31 +18,45 @@ void Engine::AnimationComponent::TickComponent(_duration deltaSeconds)
 
 	if (_isVisible == false) { return; }
 	if (0 == _currentFrame) { _isFrameEnd = false; }
-
-	_currentFrameTime += Time->NanoToSeconds(deltaSeconds);
-	
-	if (_currentFrameTime >= _frameTime)
+	if(_isEditMode)
 	{
-		_currentFrameTime -= _frameTime;
-		_prevFrame = _currentFrame;
-
-		if (_isLoop)
+		if (_prevFrame != _currentFrame && _currentFrame == _frameCount - 1)
 		{
-			_currentFrame = (_currentFrame + 1) % _frameCount;
+			_currentFrame = 0;
+			_isFrameEnd = true;
 		}
 		else
 		{
-			_currentFrame = std::min(_currentFrame + 1, _frameCount - 1);
+			_isFrameEnd = false;
 		}
-	}
-
-	if (_prevFrame != _currentFrame && _currentFrame == _frameCount - 1)
-	{
-		_isFrameEnd = true;
 	}
 	else
 	{
-		_isFrameEnd = false;
+		_currentFrameTime += Time->NanoToSeconds(deltaSeconds);
+	
+		if (_currentFrameTime >= _frameTime)
+		{
+			_currentFrameTime -= _frameTime;
+			_prevFrame = _currentFrame;
+
+			if (_isLoop)
+			{
+				_currentFrame = (_currentFrame + 1) % _frameCount;
+			}
+			else
+			{
+				_currentFrame = std::min(_currentFrame + 1, _frameCount - 1);
+			}
+		}
+
+		if (_prevFrame != _currentFrame && _currentFrame == _frameCount - 1)
+		{
+			_isFrameEnd = true;
+		}
+		else
+		{
+			_isFrameEnd = false;
+		}
 	}
 }
 
@@ -50,7 +64,15 @@ void Engine::AnimationComponent::Render(_RenderTarget pRenderTarget)
 {
 	if (_isVisible == false) { return; }
 
-	Animation* pAnimation = GetOwner()->GetAnimation(_currentClipIndex);
+	Animation* pAnimation{};
+	if(_owner)
+	{
+		pAnimation = GetOwner()->GetAnimation(_currentClipIndex);
+	}
+	else
+	{
+		pAnimation = _pAnimation;
+	}
 
 	SetAnimationRect(pAnimation);
 
@@ -95,12 +117,12 @@ void Engine::AnimationComponent::AllAddClipThisActor()
 		{
 			std::wstring clipName = tag.substr(tag.find_last_of(L"/") + 1);
 			string convertClipName = clipName.c_str();
-			AddClip(convertClipName, true);
+			AddClip(convertClipName);
 		}
 	}
 }
 
-void Engine::AnimationComponent::AddClip(_pstring clipName, bool isLoop)
+void Engine::AnimationComponent::AddClip(_pstring clipName)
 {
 	if(!_isInLayer)
 	{
@@ -114,13 +136,78 @@ void Engine::AnimationComponent::AddClip(_pstring clipName, bool isLoop)
 
 	Animation* pAnimation = TextureMgr->FindAnimation(textureName);
 	AnimationClip* pClip = new AnimationClip(clipName);
-	pClip->frameTime = pAnimation->GetFrameRate();
+	pClip->frameTime = (float)pAnimation->GetFrameRate();
 	pClip->clipIndex = _indexCount++;
-	pClip->maxFrame = pAnimation->size();
-	pClip->isLoop = isLoop;
+	pClip->maxFrame = (int)pAnimation->size();
+	pClip->isLoop = /*pAnimation->IsLoop()*/true;
 
 	_vecClips[clipName] = std::move(pClip);
 	GetOwner()->AddAnimation(pAnimation);
+}
+
+void Engine::AnimationComponent::EditorAddClip(Animation* pAnimation, bool isLoop)
+{
+	_pAnimation = pAnimation;
+
+	AnimationClip* pClip = new AnimationClip("default");
+	pClip->frameTime = (float)_pAnimation->GetFrameRate();
+	pClip->clipIndex = _indexCount++;
+	pClip->maxFrame = (int)_pAnimation->size();
+
+	_vecClips["default"] = std::move(pClip);
+	_frameCount = pClip->maxFrame;
+	_frameTime = pClip->frameTime;
+	_isLoop = isLoop;
+
+	_currentFrame = 0;
+	_prevFrame = 0;
+}
+
+void Engine::AnimationComponent::InEditMode()
+{
+	_isEditMode = true;
+	_currentFrame = 0;
+	_prevFrame = 0;
+	_currentFrameTime = 0;
+	_isFrameEnd = false;
+}
+
+void Engine::AnimationComponent::OutEditMode()
+{
+	_isEditMode = false;
+	_currentFrame = 0;
+	_prevFrame = 0;
+	_currentFrameTime = 0;
+	_isFrameEnd = false;
+}
+
+bool Engine::AnimationComponent::IsEditMode() const
+{
+	return _isEditMode;
+}
+
+int Engine::AnimationComponent::GetCurrentFrame() const
+{
+	return _currentFrame;
+}
+
+void Engine::AnimationComponent::EditorSetFrame(_int frame)
+{
+	_currentFrame = frame;
+}
+
+void Engine::AnimationComponent::EditorNextFrame()
+{
+	_currentFrame = (_currentFrame + 1) % _frameCount;
+}
+
+void Engine::AnimationComponent::EditorPrevFrame()
+{
+	_currentFrame = (_currentFrame - 1) % _frameCount;
+	if (_currentFrame < 0)
+	{
+		_currentFrame = _frameCount - 1;
+	}
 }
 
 const bool Engine::AnimationComponent::IsClipPlay(_pstring clipName) const
@@ -157,8 +244,6 @@ void Engine::AnimationComponent::SetPlayClip(_pstring clipName)
 	_isLoop = _vecClips[clipName]->isLoop;
 
 	Animation* pAnimation = GetOwner()->GetAnimation(_currentClipIndex);
-
-	_frameCount = (int)pAnimation->size();
 
 	_currentFrame = 0;
 	_prevFrame = 0;

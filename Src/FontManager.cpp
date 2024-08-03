@@ -12,12 +12,12 @@ bool Engine::FontManager::Initialize()
 		_pFontFormat _pDefaultFont{ nullptr };
 
 		hresult = _pDWriteFactory->CreateTextFormat(
-			L"πŸ≈¡",
+			L"∏º¿∫∞ÌµÒ",
 			nullptr,
 			DWRITE_FONT_WEIGHT_REGULAR,
 			DWRITE_FONT_STYLE_NORMAL,
 			DWRITE_FONT_STRETCH_NORMAL,
-			34.0f,
+			20.0f,
 			L"en-us",
 			&_pDefaultFont
 		);

@@ -4,7 +4,6 @@
 void Client::TestActor::BeginPlay()
 {
 	_pAnimationComponent = AddComponent<Engine::AnimationComponent>("AnimationComponent");
-	//_pAnimationComponent->AllAddClipThisActor();
 	_pAnimationComponent->SetPlayClip("Idle"); //그런데 얘 테스트용이라 용량크거든? 조심해라?
 }
 

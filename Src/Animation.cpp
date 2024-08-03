@@ -1,12 +1,29 @@
 #include <Animation.h>
 #include <CoreManager.h>
+#include "../ThirdParty/nlohmann/json.hpp"
 
 bool Engine::Animation::LoadAnimation(_pwstring fileName)
 {
-    string convert = fileName;
-    _path = convert;
-    _animation = rlottie::Animation::loadFromFile(_path);
+    HRESULT hresult{ S_FALSE };
+    string  convert = fileName;
 
+    _path = convert;
+
+	std::string metaFilePath = _path.substr(0, _path.find_last_of('.')) + ".metadata";
+    std::ifstream inputFile(metaFilePath);
+	if (inputFile.is_open())
+	{
+		nlohmann::json json;
+		inputFile >> json;
+		inputFile.close();
+
+		if (json.contains("metadata") && json["metadata"].contains("loop"))
+		{
+			_isLoop = json["metadata"]["loop"].get<bool>();
+		}
+	}
+
+    _animation = rlottie::Animation::loadFromFile(_path);
     if (!_animation) return false;
 
     _animation->size(_width, _height);
@@ -19,15 +36,13 @@ bool Engine::Animation::LoadAnimation(_pwstring fileName)
         rlottie::Surface surface(frameBuffer.data(), _width, _height, _width * 4);
         _animation->renderSync(frameNumber, surface);
 
-        HRESULT hresult{ S_FALSE };
-
 		SmartPtr<IWICBitmap>  pWICBitmap{ nullptr };
         SmartPtr<ID2D1Bitmap> pBitmap{ nullptr };
         hresult = Management->WICFactory->CreateBitmapFromMemory(
-			_width,
-			_height,
+			(_uint)_width,
+			(_uint)_height,
 			GUID_WICPixelFormat32bppPBGRA,
-			_width * 4,
+			(_uint)_width * 4,
 			static_cast<UINT>(frameBuffer.size() * sizeof(uint32_t)),
 			reinterpret_cast<BYTE*>(frameBuffer.data()),
 			&pWICBitmap
@@ -38,7 +53,9 @@ bool Engine::Animation::LoadAnimation(_pwstring fileName)
 				pWICBitmap.Get(), nullptr, &pBitmap);
 
 			if (SUCCEEDED(hresult))
+            {
                 _textures.push_back(pBitmap);
+            }
 		}
     }
 

@@ -28,8 +28,8 @@ namespace Engine
 	public:
 		void Destroy() override;
 
-	private:
-		HRESULT InitializeD2D(HWND hWnd);
+	public:
+		HRESULT InitializeD2D(HWND hWnd, bool isEditor = false);
 
 	private:
 		IWICImagingFactory*				_pWICFactory{};

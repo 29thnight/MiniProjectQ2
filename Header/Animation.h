@@ -18,10 +18,13 @@ namespace Engine
 	public:
 		bool LoadAnimation(_pwstring fileName);
 		size_t size() const { return _textures.size(); }
+
+	public: //rlottie ¹× metadata Á¤º¸
+		std::shared_ptr<rlottie::Animation> GetRlottieAnimation() const { return _animation; }
 		Mathf::SizeF GetCanvasSize() const;
 		size_t GetTotalFrame() const { return _totalFrame; }
-		std::shared_ptr<rlottie::Animation> GetRlottieAnimation() const { return _animation; }
-		_float GetFrameRate() const { return _frameRate; }
+		const double GetFrameRate() const { return _frameRate; }
+		bool IsLoop() const { return _isLoop; }
 
 	public:
 		virtual void SerializeIn(nlohmann::ordered_json& object) {};
