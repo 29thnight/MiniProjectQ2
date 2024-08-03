@@ -30,6 +30,9 @@
     <ClCompile Include="Src\ClientWorld.cpp" />
     <ClCompile Include="Src\TestActor.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\ObjBaseEngine.rc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
