@@ -95,12 +95,12 @@ void Engine::AnimationComponent::AllAddClipThisActor()
 		{
 			std::wstring clipName = tag.substr(tag.find_last_of(L"/") + 1);
 			string convertClipName = clipName.c_str();
-			AddClip(convertClipName, 0.1f, true);
+			AddClip(convertClipName, true);
 		}
 	}
 }
 
-void Engine::AnimationComponent::AddClip(_pstring clipName, _float frameTime, bool isLoop)
+void Engine::AnimationComponent::AddClip(_pstring clipName, bool isLoop)
 {
 	if(!_isInLayer)
 	{
@@ -118,7 +118,6 @@ void Engine::AnimationComponent::AddClip(_pstring clipName, _float frameTime, bo
 	pClip->clipIndex = _indexCount++;
 	pClip->maxFrame = pAnimation->size();
 	pClip->isLoop = isLoop;
-
 
 	_vecClips[clipName] = std::move(pClip);
 	GetOwner()->AddAnimation(pAnimation);

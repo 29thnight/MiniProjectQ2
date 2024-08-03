@@ -83,7 +83,7 @@ void Engine::MainEntry::Initialize(GameSettings gameSettings)
 
 void Engine::MainEntry::MainLoop()
 {
-		MSG msg;
+	MSG msg;
 
 	while (true)
 	{

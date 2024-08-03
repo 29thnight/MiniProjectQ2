@@ -16,7 +16,7 @@ namespace Engine
 		virtual void Render(_RenderTarget pRenderTarget) override;
 		void SetAnimationRect(Animation* pAnimation);
 		void AllAddClipThisActor();
-		void AddClip(_pstring clipName, _float frameTime, bool isLoop = false);
+		void AddClip(_pstring clipName, bool isLoop = false);
 		const bool IsClipPlay(_pstring clipName) const;
 		const bool IsClipEnd(_pstring clipName) const;
 		const bool IsFrameEnd() const;

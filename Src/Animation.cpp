@@ -19,23 +19,30 @@ bool Engine::Animation::LoadAnimation(_pwstring fileName)
         rlottie::Surface surface(frameBuffer.data(), _width, _height, _width * 4);
         _animation->renderSync(frameNumber, surface);
 
-        D2D1_BITMAP_PROPERTIES bitmapProperties{ };
-        bitmapProperties.pixelFormat = Management->renderTarget->GetPixelFormat();
-        bitmapProperties.dpiX = bitmapProperties.dpiY = 96.0f;
+        HRESULT hresult{ S_FALSE };
 
-        ID2D1Bitmap* pBitmap = nullptr;
-        Management->renderTarget->CreateBitmap(
-            D2D1::SizeU((UINT32)_width, (UINT32)_height),
-            frameBuffer.data(),
-            _width * 4,
-            &bitmapProperties,
-            &pBitmap
-        );
+		SmartPtr<IWICBitmap>  pWICBitmap{ nullptr };
+        SmartPtr<ID2D1Bitmap> pBitmap{ nullptr };
+        hresult = Management->WICFactory->CreateBitmapFromMemory(
+			_width,
+			_height,
+			GUID_WICPixelFormat32bppPBGRA,
+			_width * 4,
+			static_cast<UINT>(frameBuffer.size() * sizeof(uint32_t)),
+			reinterpret_cast<BYTE*>(frameBuffer.data()),
+			&pWICBitmap
+		);
+		if (SUCCEEDED(hresult))
+		{
+			hresult = Management->renderTarget->CreateBitmapFromWicBitmap(
+				pWICBitmap.Get(), nullptr, &pBitmap);
 
-        _textures.push_back(pBitmap);
+			if (SUCCEEDED(hresult))
+                _textures.push_back(pBitmap);
+		}
     }
 
-        return true;
+    return true;
 }
 
 Mathf::SizeF Engine::Animation::GetCanvasSize() const

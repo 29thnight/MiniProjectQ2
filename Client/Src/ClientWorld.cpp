@@ -4,10 +4,6 @@
 
 bool Client::ClientWorld::BeginPlay()
 {
-	//Engine::Level* pLevel = ClientLevel::Create();
-	//ContainLevel(pLevel);
-	//pLevel->BeginPlay();
-
 	AddLevel<ClientLevel>();
 
 	SettingCamera();
