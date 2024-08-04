@@ -17,13 +17,15 @@ void Client::TestActor::Tick(_duration deltaSeconds)
 
 	if(_pInputComponent->IsKeyPress(DIK_SPACE))
 	{
+		//부분루프를 종료할 떄는 루프를 끝내는 함수를 호출해야 함.(끝나고 루프를 종료할건지 몇번 루프할건지, 계속 루프할건지)
 		Sound->LoopExit(CHANNEL_BGM, LOOP_ONCE);
 		std::cout << "Space Key Pressed Pos : " << Sound->GetPosition(CHANNEL_BGM) << std::endl;
 	}
 
 	if(20000 <= Sound->GetPosition(CHANNEL_BGM) && 25000 > Sound->GetPosition(CHANNEL_BGM))
 	{
-		Sound->LoopEnter(CHANNEL_BGM, 25000, 30000);
+		//부분 루프가 필요한 부분의 시작포지션, 끝 포지션 지정해야 함.
+		Sound->LoopEnter(CHANNEL_BGM, 25000, 30000); //FMOD 포지션 테스트 및 부분 루프 테스트 코드
 	}
 }
 
