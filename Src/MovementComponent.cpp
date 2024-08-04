@@ -37,7 +37,7 @@ void Engine::MovementComponent::TickComponent(_duration deltaSeconds)
 
 	_ownerCurrentLocation = _pRootComponent->GetWorldLocation();
 
-	_velocity.y += _calculatedGravity * Time->NanoToSeconds(deltaSeconds);
+	_velocity.y += _calculatedGravity * Time->DurationToFloat(deltaSeconds);
 	//std::cout << _velocity.y << std::endl;
 	if (_velocity.x > 0)
 	{
@@ -48,7 +48,7 @@ void Engine::MovementComponent::TickComponent(_duration deltaSeconds)
 		_velocity.x = std::min(_velocity.x, _limitSpeed);
 	}
 
-	_pRootComponent->AddRelativeLocation(_velocity * Time->NanoToSeconds(deltaSeconds));
+	_pRootComponent->AddRelativeLocation(_velocity * Time->DurationToFloat(deltaSeconds));
 	_pRootComponent->SetVelocity(_velocity);
 
 	_velocity.x *= _friction;

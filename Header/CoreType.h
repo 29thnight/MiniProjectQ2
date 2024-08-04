@@ -35,11 +35,4 @@ public:
 	ComType* Get() const { return Microsoft::WRL::ComPtr<ComType>::Get(); }
 };
 
-
-#undef ChooseColor
-inline Color ChooseColor(Palette color)
-{
-	return Color(color);
-}
-
        

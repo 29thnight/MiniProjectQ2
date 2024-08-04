@@ -193,9 +193,6 @@
     <Filter Include="Engine\BaseClass\StateMachine\StateMachine">
       <UniqueIdentifier>{e4d8dffa-f9dc-4a66-8b70-7510daab27cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Utility\IniFileLoader">
-      <UniqueIdentifier>{9a77087a-773f-4f2c-83c4-fefdb18427b0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Components\SceneComponents\CollisionComponent\SphereComponent">
       <UniqueIdentifier>{50d90b52-a828-4e9a-b58b-ffcc903d1823}</UniqueIdentifier>
     </Filter>
@@ -204,9 +201,6 @@
     </Filter>
     <Filter Include="Engine\Components\SceneComponents\CollisionComponent\RayCastComponent">
       <UniqueIdentifier>{79b66000-c26a-4a43-b289-74eec874bb72}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Utility\CsvFileLoader">
-      <UniqueIdentifier>{a1a4b4e2-1156-47ae-9d30-5d1d31319366}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Components\SceneComponents\CollisionComponent\OBBComponent">
       <UniqueIdentifier>{14baa43b-febb-44ff-84a9-3bbef1b2f7e5}</UniqueIdentifier>
@@ -228,6 +222,12 @@
     </Filter>
     <Filter Include="Engine\Components\SceneComponents\AnimationComponent">
       <UniqueIdentifier>{bb01456a-7214-4914-b807-1e49e52ed4c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Utility\CsvFile">
+      <UniqueIdentifier>{a1a4b4e2-1156-47ae-9d30-5d1d31319366}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Utility\IniFile">
+      <UniqueIdentifier>{9a77087a-773f-4f2c-83c4-fefdb18427b0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -391,7 +391,7 @@
       <Filter>Engine\Managers\CollisionManager</Filter>
     </ClInclude>
     <ClInclude Include="Header\SimpleIniLoader.h">
-      <Filter>Engine\Utility\IniFileLoader</Filter>
+      <Filter>Engine\Utility\IniFile</Filter>
     </ClInclude>
     <ClInclude Include="Header\Random.h">
       <Filter>Engine\Utility\Random</Filter>
@@ -403,7 +403,7 @@
       <Filter>Engine\Components\ActorComponents\RigidBodyComponent</Filter>
     </ClInclude>
     <ClInclude Include="Header\CsvLoader.h">
-      <Filter>Engine\Utility\CsvFileLoader</Filter>
+      <Filter>Engine\Utility\CsvFile</Filter>
     </ClInclude>
     <ClInclude Include="Header\RCollision.h">
       <Filter>Engine\BaseClass\Collision\Rcollision</Filter>

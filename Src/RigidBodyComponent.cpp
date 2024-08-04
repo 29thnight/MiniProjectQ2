@@ -8,7 +8,7 @@ void Engine::RigidBodyComponent::TickComponent(_duration deltaSeconds)
 {
 	_acceleration = _force / _mass;
 
-	_velocity += _acceleration * Time->NanoToSeconds(deltaSeconds);
+	_velocity += _acceleration * Time->DurationToFloat(deltaSeconds);
 
 	if(_isGrounded)
 	{
@@ -18,7 +18,7 @@ void Engine::RigidBodyComponent::TickComponent(_duration deltaSeconds)
 	}
 	else
 	{
-		_velocity += _gravity * _gravityFactor * Time->NanoToSeconds(deltaSeconds);
+		_velocity += _gravity * _gravityFactor * Time->DurationToFloat(deltaSeconds);
 	}
 
 	Mathf::Vector2 gravity = _gravity;
@@ -38,7 +38,7 @@ void Engine::RigidBodyComponent::TickComponent(_duration deltaSeconds)
 
 	if(_velocity != UnitVector::Zero)
 	{
-		Mathf::Vector2 friction = _velocity.Normalize() * -1.f * _friction * _mass * Time->NanoToSeconds(deltaSeconds);
+		Mathf::Vector2 friction = _velocity.Normalize() * -1.f * _friction * _mass * Time->DurationToFloat(deltaSeconds);
 
 		if(_velocity.Length < friction.Length)
 		{
@@ -50,7 +50,7 @@ void Engine::RigidBodyComponent::TickComponent(_duration deltaSeconds)
 		}
 	}
 
-	_owner->GetRootComponent()->AddRelativeLocation(_velocity * Time->NanoToSeconds(deltaSeconds));
+	_owner->GetRootComponent()->AddRelativeLocation(_velocity * Time->DurationToFloat(deltaSeconds));
 	_owner->GetRootComponent()->SetVelocity(_velocity);
 
 	_force = UnitVector::Zero;

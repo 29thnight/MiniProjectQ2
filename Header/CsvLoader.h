@@ -112,3 +112,61 @@ public:
 private:
     std::vector<RowType> data;
 };
+
+template<typename... Types>
+class CSVWriter 
+{
+public:
+    using RowType = std::tuple<Types...>;
+
+    CSVWriter(const std::string& filename) 
+    {
+        file.open(filename);
+        if (!file.is_open()) 
+        {
+            throw std::runtime_error("Could not open file for writing");
+        }
+    }
+
+    ~CSVWriter() 
+    {
+        if (file.is_open()) 
+        {
+            file.close();
+        }
+    }
+
+    void addRow(const RowType& row) 
+    {
+        data.push_back(row);
+    }
+
+    void writeFile() 
+    {
+        if (!file.is_open()) 
+        {
+            throw std::runtime_error("File is not open");
+        }
+
+        for (const auto& row : data) 
+        {
+            writeRow(row);
+            file << '\n';
+        }
+    }
+
+private:
+    std::ofstream file;
+    std::vector<RowType> data;
+
+    template<std::size_t... I>
+    void writeRowImpl(const RowType& row, std::index_sequence<I...>) 
+    {
+        ((file << (I == 0 ? "" : ",") << std::get<I>(row)), ...);
+    }
+
+    void writeRow(const RowType& row) 
+    {
+        writeRowImpl(row, std::make_index_sequence<sizeof...(Types)>{});
+    }
+};

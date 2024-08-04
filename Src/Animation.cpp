@@ -17,9 +17,9 @@ bool Engine::Animation::LoadAnimation(_pwstring fileName)
 		inputFile >> json;
 		inputFile.close();
 
-		if (json.contains("metadata") && json["metadata"].contains("loop"))
+		if (json.contains("loop"))
 		{
-			_isLoop = json["metadata"]["loop"].get<bool>();
+			_isLoop = json["loop"].get<bool>();
 		}
 	}
 
@@ -55,6 +55,8 @@ bool Engine::Animation::LoadAnimation(_pwstring fileName)
 			if (SUCCEEDED(hresult))
             {
                 _textures.push_back(pBitmap);
+				std::cout << _path << "Frame " << frameNumber << " loaded" << std::endl;
+				//조금만 애니메이션이 무거워지면 로딩하는데 하루종일 걸리네...
             }
 		}
     }

@@ -21,10 +21,10 @@ namespace Engine
 	public:
 		bool Initialize(int maxChannels);
 		void LoadSound(const char* filePath);
-		void Update(_float deltaTime);
+		void Update(_duration deltaSeconds);
 
 	public:
-		void PlaySound(const char* soundName, int channel, int loopCount);
+		void PlaySound(const char* soundName, int channel, int loopCount = -1);
 		void StopSound(int channel);
 		void StopAllSound();
 
@@ -38,7 +38,10 @@ namespace Engine
 
 	public:
 		void SetPan(int channel, float pan);
+		void LoopEnter(int channel, _uint startPosition, _uint endPosition);
+		void LoopExit(int channel, int loopCount);
 		_uint GetPosition(int channel);
+		_uint GetLength(int channel);
 
 	public:
 		virtual void Destroy() override;

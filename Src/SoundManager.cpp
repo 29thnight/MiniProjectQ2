@@ -42,10 +42,10 @@ void Engine::SoundManager::LoadSound(const char* filePath)
 		else
 		{
 			file::path fullPath = entry.path();
+			
+			std::string tag = fullPath.filename().string();
+			tag = tag.substr(0, tag.find_last_of('.'));
 
-			std::string tag = fullPath.parent_path().string();
-			tag = tag.substr(tag.find_last_of("/") + 1);
-			std::replace(tag.begin(), tag.end(), '\\', '/');
 
 			FMOD::Sound* pSound = _sounds[tag];
 
@@ -58,24 +58,31 @@ void Engine::SoundManager::LoadSound(const char* filePath)
 	}
 }
 
-void Engine::SoundManager::Update(_float deltaTime)
+void Engine::SoundManager::Update(_duration deltaSeconds)
 {
 	_pSystem->update();
 	for (int i = 0; i < _maxChannels; ++i)
 	{
 		if (_fadeSounds[i].current >= _fadeSounds[i].target)
 		{
-			_fadeSounds[i].current -= deltaTime;
+			_fadeSounds[i].current -= Time->DurationToFloat(deltaSeconds);
 		}
 		_channelGroups[i]->setVolume(_fadeSounds[i].current);
 	}
 
 	for (auto& channel : _executeChannels)
 	{
-		bool isPlaying = false;
-		channel->isPlaying(&isPlaying);
+		if (_executeChannels.empty())
+		{
+			break;
+		}
 
-		if (!isPlaying)
+		bool isPlaying = false;
+		int loopCount = 0;
+		channel->isPlaying(&isPlaying);
+		channel->getLoopCount(&loopCount);
+
+		if (!isPlaying && loopCount == 0)
 		{
 			_executeChannels.remove(channel);
 		}
@@ -89,9 +96,17 @@ void Engine::SoundManager::PlaySound(const char* soundName, int channel, int loo
 	if(pSound)
 	{
 		FMOD::Channel* pChannel = nullptr;
-		_executeChannels.push_back(pChannel);
+		_uint startPos{ 0 };
+		_uint endPos{ 0 };
+		pSound->getLength(&endPos, FMOD_TIMEUNIT_MS);
+
+		pSound->setLoopPoints(
+			startPos, FMOD_TIMEUNIT_MS,
+			endPos, FMOD_TIMEUNIT_MS
+		);
 
 		_pSystem->playSound(pSound, _channelGroups[channel], false, &pChannel);
+		pChannel->setMode(FMOD_LOOP_NORMAL);
 		pChannel->setLoopCount(loopCount);
 		_executeChannels.push_back(pChannel);
 	}
@@ -143,6 +158,37 @@ void Engine::SoundManager::SetPan(int channel, float pan)
 	_channelGroups[channel]->setPan(pan);
 }
 
+void Engine::SoundManager::LoopEnter(int channel, _uint startPosition, _uint endPosition)
+{
+	FMOD::Channel* pChannel = nullptr;
+
+	_channelGroups[channel]->getChannel(0, &pChannel);
+	pChannel->setLoopPoints(
+		startPosition, FMOD_TIMEUNIT_MS,
+		endPosition, FMOD_TIMEUNIT_MS
+	);
+	pChannel->setMode(FMOD_LOOP_NORMAL);
+	pChannel->setLoopCount(LOOP_INFINITE);
+}
+
+void Engine::SoundManager::LoopExit(int channel, int loopCount)
+{
+	FMOD::Channel* pChannel = nullptr;
+	FMOD::Sound* pSound = nullptr;
+
+	_channelGroups[channel]->getChannel(0, &pChannel);
+	_uint startPos{ 0 };
+	_uint endPos{ 0 };
+	pChannel->getCurrentSound(&pSound);
+	pSound->getLength(&endPos, FMOD_TIMEUNIT_MS);
+	pChannel->setLoopPoints(
+		startPos, FMOD_TIMEUNIT_MS,
+		endPos, FMOD_TIMEUNIT_MS
+	);
+	pChannel->setMode(FMOD_LOOP_NORMAL);
+	pChannel->setLoopCount(loopCount);
+}
+
 _uint Engine::SoundManager::GetPosition(int channel)
 {
 	if (channel < 0 || channel >= _maxChannels) 
@@ -160,6 +206,27 @@ _uint Engine::SoundManager::GetPosition(int channel)
     }
 
     return position;
+}
+
+_uint Engine::SoundManager::GetLength(int channel)
+{
+	if (channel < 0 || channel >= _maxChannels)
+	{
+		return 0;  // 잘못된 채널 번호 처리
+	}
+
+	_uint length = 0;
+	FMOD::Channel* pChannel = nullptr;
+	FMOD::Sound* pSound = nullptr;
+	_channelGroups[channel]->getChannel(0, &pChannel);
+	pChannel->getCurrentSound(&pSound);
+
+	if (pSound)
+	{
+		pSound->getLength(&length, FMOD_TIMEUNIT_MS);
+	}
+
+	return length;
 }
 
 void Engine::SoundManager::Destroy()

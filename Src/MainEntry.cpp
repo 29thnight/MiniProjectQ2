@@ -75,9 +75,6 @@ void Engine::MainEntry::Initialize(GameSettings gameSettings)
 		NULL
 	);
 
-	ShowWindow(gameSettings.hWnd, SW_SHOWNORMAL);
-	UpdateWindow(gameSettings.hWnd);
-
 	_pSystem = System::Create(std::move(gameSettings));
 }
 

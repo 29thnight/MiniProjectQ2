@@ -23,7 +23,7 @@ void Engine::InputComponent::TickComponent(_duration deltaSeconds)
 
 	if (9999.f > elapsedTick)
 	{
-		elapsedTick += Time->NanoToSeconds(deltaSeconds);
+		elapsedTick += Time->DurationToFloat(deltaSeconds);
 	}
 }
 

@@ -35,7 +35,7 @@ _duration Engine::TimeManager::GetDeltaSeconds() const
     return _deltaSeconds;
 }
 
-_float Engine::TimeManager::NanoToSeconds(_duration duration) const
+_float Engine::TimeManager::DurationToFloat(_duration duration) const
 {
 	return std::chrono::duration_cast<std::chrono::duration<float>>(duration).count();
 }

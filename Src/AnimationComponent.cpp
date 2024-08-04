@@ -32,7 +32,7 @@ void Engine::AnimationComponent::TickComponent(_duration deltaSeconds)
 	}
 	else
 	{
-		_currentFrameTime += Time->NanoToSeconds(deltaSeconds);
+		_currentFrameTime += Time->DurationToFloat(deltaSeconds);
 	
 		if (_currentFrameTime >= _frameTime)
 		{
@@ -139,7 +139,7 @@ void Engine::AnimationComponent::AddClip(_pstring clipName)
 	pClip->frameTime = (float)pAnimation->GetFrameRate();
 	pClip->clipIndex = _indexCount++;
 	pClip->maxFrame = (int)pAnimation->size();
-	pClip->isLoop = /*pAnimation->IsLoop()*/true;
+	pClip->isLoop = pAnimation->IsLoop();
 
 	_vecClips[clipName] = std::move(pClip);
 	GetOwner()->AddAnimation(pAnimation);

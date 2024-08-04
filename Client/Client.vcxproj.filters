@@ -15,6 +15,9 @@
     <Filter Include="TestActor">
       <UniqueIdentifier>{16a82e92-bf3a-4e08-aae7-6301de18f368}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CunductorTest">
+      <UniqueIdentifier>{65e00d16-64f0-4f54-a1a2-2243d755ceec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\ClientEntry.h">
@@ -28,6 +31,9 @@
     </ClInclude>
     <ClInclude Include="Header\ClientLevel.h">
       <Filter>ClientLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Conductor.h">
+      <Filter>CunductorTest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

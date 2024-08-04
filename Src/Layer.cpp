@@ -44,7 +44,10 @@ void Engine::Layer::Render(_RenderTarget pRenderTarget)
 		for (auto& renderComponent : _renderQueue)
 		{
 			if (renderComponent->GetOwner()->IsDestroyMarked())
+			{
+				RemoveRenderQueue(renderComponent);
 				continue;
+			}
 
 			renderComponent->SetCameraMatrix(matrixCamera);
 			renderComponent->Render(pRenderTarget);
@@ -57,7 +60,10 @@ void Engine::Layer::Render(_RenderTarget pRenderTarget)
 		for (auto& renderComponent : _renderQueue)
 		{
 			if (renderComponent->GetOwner()->IsDestroyMarked())
+			{
+				RemoveRenderQueue(renderComponent);
 				continue;
+			}
 
 			renderComponent->SetCameraMatrix(matrixCamera);
 			renderComponent->Render(pRenderTarget);

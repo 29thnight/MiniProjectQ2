@@ -29,7 +29,7 @@ void Engine::CameraActor::Tick(_duration deltaSeconds)
 	Mathf::Vector2 cameraLocation = _cameraComponent->GetRelativeLocation();
 
 	Mathf::Vector2 targetLocation = ( parentLocation - cameraCenter - cameraOffset );
-	Mathf::Vector2 newLocation = Mathf::Lerp(cameraLocation, targetLocation, _cameraLerpFactor * Time->NanoToSeconds(deltaSeconds));
+	Mathf::Vector2 newLocation = Mathf::Lerp(cameraLocation, targetLocation, _cameraLerpFactor * Time->DurationToFloat(deltaSeconds));
 
 	if (targetLocation != _oldLocation)
 	{

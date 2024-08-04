@@ -6,11 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ObjBaseEngine", "ObjBaseEngine.vcxproj", "{7DEC68A4-767C-4F0D-A2F1-DD2518791276}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{2674826B-A9E9-4F0D-A32E-AACA515ED2CD}"
-	ProjectSection(ProjectDependencies) = postProject
-		{7DEC68A4-767C-4F0D-A2F1-DD2518791276} = {7DEC68A4-767C-4F0D-A2F1-DD2518791276}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MetadataEditor", "..\MetadataEditor\MetadataEditor.vcxproj", "{D5857341-1FA8-4B54-95D6-ACC907474CC4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NoteSyncEditor", "..\NoteSyncEditor\NoteSyncEditor.vcxproj", "{84C6793A-0B5A-479C-8003-2569B9B758BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +43,14 @@ Global
 		{D5857341-1FA8-4B54-95D6-ACC907474CC4}.Release|x64.Build.0 = Release|x64
 		{D5857341-1FA8-4B54-95D6-ACC907474CC4}.Release|x86.ActiveCfg = Release|Win32
 		{D5857341-1FA8-4B54-95D6-ACC907474CC4}.Release|x86.Build.0 = Release|Win32
+		{84C6793A-0B5A-479C-8003-2569B9B758BE}.Debug|x64.ActiveCfg = Debug|x64
+		{84C6793A-0B5A-479C-8003-2569B9B758BE}.Debug|x64.Build.0 = Debug|x64
+		{84C6793A-0B5A-479C-8003-2569B9B758BE}.Debug|x86.ActiveCfg = Debug|Win32
+		{84C6793A-0B5A-479C-8003-2569B9B758BE}.Debug|x86.Build.0 = Debug|Win32
+		{84C6793A-0B5A-479C-8003-2569B9B758BE}.Release|x64.ActiveCfg = Release|x64
+		{84C6793A-0B5A-479C-8003-2569B9B758BE}.Release|x64.Build.0 = Release|x64
+		{84C6793A-0B5A-479C-8003-2569B9B758BE}.Release|x86.ActiveCfg = Release|Win32
+		{84C6793A-0B5A-479C-8003-2569B9B758BE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

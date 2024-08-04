@@ -39,5 +39,6 @@ namespace Client
 
 	private:
 		Engine::AnimationComponent* _pAnimationComponent = nullptr;
+		Engine::InputComponent*		_pInputComponent = nullptr;
 	};
 }

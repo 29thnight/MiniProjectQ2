@@ -58,15 +58,19 @@ std::wstring WinUtility::GetOpenFilePath(const wchar_t* fileType)
 	return L""; 
 }
 
-std::wstring WinUtility::GetOpenFilePath(HWND hWnd, const wchar_t* fileType)
+std::wstring WinUtility::GetOpenFilePath(HWND hWnd, std::vector<std::pair<std::wstring, std::wstring>> fileFilter)
 {
 	if (hWnd)
 	{
 		OPENFILENAME ofn;
-		
 		wchar_t szFile[256]; // 선택된 파일 경로를 저장할 배열
 		ZeroMemory(&ofn, sizeof(ofn));
 		ZeroMemory(szFile, sizeof(szFile));
+		std::wstring combineFilter;
+		for (auto& filter : fileFilter)
+		{
+			combineFilter += filter.first + L'\0' + filter.second + L'\0';
+		}
 
 		// 파일 경로 선택 창 초기화
 		ofn.lStructSize = sizeof(ofn);
@@ -74,7 +78,7 @@ std::wstring WinUtility::GetOpenFilePath(HWND hWnd, const wchar_t* fileType)
 		ofn.lpstrFile = szFile;
 		ofn.lpstrFile[0] = '\0';
 		ofn.nMaxFile = sizeof(szFile);
-		ofn.lpstrFilter = fileType;// 필터링할 파일 타입 지정
+		ofn.lpstrFilter = combineFilter.c_str();// 필터링할 파일 타입 지정
 		ofn.nFilterIndex = 1;
 		ofn.lpstrFileTitle = NULL;
 		ofn.nMaxFileTitle = 0;

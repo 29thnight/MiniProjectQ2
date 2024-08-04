@@ -42,7 +42,7 @@ namespace Engine
 	public:
 		int GetFPS() const;
 		_duration GetDeltaSeconds() const;
-		_float NanoToSeconds(_duration duration) const;
+		_float DurationToFloat(_duration duration) const;
 		_float GetTimeScale() const;
 
 	private:

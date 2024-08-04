@@ -49,6 +49,10 @@ bool Engine::System::Initialize(GameSettings&& gameSettings)
 	Graphics->AddBrush("Red",D2D1::ColorF(D2D1::ColorF::Red));
 #endif // DEBUG
 
+	//리소스	로딩이 끝나면 윈도우를 보여준다.
+	ShowWindow(Management->setting.hWnd, SW_SHOWNORMAL);
+	UpdateWindow(Management->setting.hWnd);
+
 	return true;
 }
 
@@ -60,6 +64,7 @@ void Engine::System::Destroy()
 	TextureTerminate();
 	InputTerminate();
 	GraphicsTerminate();
+	SoundTerminate();
 }
 
 Engine::System* Engine::System::Create(GameSettings&& gameSettings)

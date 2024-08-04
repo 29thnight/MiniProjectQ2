@@ -2,6 +2,7 @@
 #include <CoreManager.h>
 #include <TimeManager.h>
 #include <InputManager.h>
+#include <SoundManager.h>
 #include <World.h>
 #include <Object.h>
 #include <CoreBase.h>
@@ -20,6 +21,7 @@ void Engine::CoreManager::BeginPlay()
 void Engine::CoreManager::Tick()
 {
 	Time->UpdateTick();
+	Sound->Update(Time->DeltaSeconds);
 	InputMgr->InputUpdate();
 	setting.pWorld->Tick(Time->DeltaSeconds);
 	_pCollisionManager->SimulateCollision();

@@ -11,6 +11,7 @@ namespace Client
 
 	public:
 		bool BeginPlay() override;
+		void Tick(_duration deltaSeconds) override;
 
 	public:
 		static ClientWorld* Create();
