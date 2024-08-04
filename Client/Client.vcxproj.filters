@@ -15,6 +15,9 @@
     <Filter Include="TestActor">
       <UniqueIdentifier>{16a82e92-bf3a-4e08-aae7-6301de18f368}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NoteActor">
+      <UniqueIdentifier>{e891190a-edac-4338-87d7-2d62526c23de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\ClientEntry.h">
@@ -29,6 +32,15 @@
     <ClInclude Include="Header\ClientLevel.h">
       <Filter>ClientLevel</Filter>
     </ClInclude>
+    <ClInclude Include="Header\PrototypeEditerWorld.h">
+      <Filter>ClientWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\PrototypeEditerLevel.h">
+      <Filter>ClientLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\NoteManager.h">
+      <Filter>NoteActor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\ClientEntry.cpp">
@@ -42,6 +54,15 @@
     </ClCompile>
     <ClCompile Include="Src\ClientLevel.cpp">
       <Filter>ClientLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PrototypeEditerWorld.cpp">
+      <Filter>ClientWorld</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PrototypeEditerLevel.cpp">
+      <Filter>ClientLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\NoteManager.cpp">
+      <Filter>NoteActor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
