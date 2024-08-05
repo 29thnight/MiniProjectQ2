@@ -1,5 +1,6 @@
 ﻿#include <ClientEntry.h>
 #include <ClientWorld.h>
+#include <PrototypeEditerWorld.h>
 
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
@@ -20,4 +21,5 @@ DEFINE_WWINMAIN_RELEASE("GameSettings.ini");
 void Client::ClientEntry::CreateWorld()
 {
 	_pWorld = ClientWorld::Create();
+	//_pWorld = PrototypeEditerWorld::Create();
 }

@@ -22,13 +22,15 @@
     <ClInclude Include="Header\ClientEntry.h" />
     <ClInclude Include="Header\ClientLevel.h" />
     <ClInclude Include="Header\ClientWorld.h" />
-    <ClInclude Include="Header\Conductor.h" />
     <ClInclude Include="Header\TestActor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\ClientEntry.cpp" />
     <ClCompile Include="Src\ClientLevel.cpp" />
     <ClCompile Include="Src\ClientWorld.cpp" />
+    <ClCompile Include="Src\NoteManager.cpp" />
+    <ClCompile Include="Src\PrototypeEditerLevel.cpp" />
+    <ClCompile Include="Src\PrototypeEditerWorld.cpp" />
     <ClCompile Include="Src\TestActor.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,7 @@ void Engine::Actor::Tick(_duration deltaSeconds)
 
 void Engine::Actor::Fixed()
 {
+	
 }
 
 void Engine::Actor::EndPlay()
