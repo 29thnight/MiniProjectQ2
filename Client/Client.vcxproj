@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Header\BGMManager.h" />
     <ClInclude Include="Header\ClientEntry.h" />
     <ClInclude Include="Header\ClientLevel.h" />
     <ClInclude Include="Header\ClientWorld.h" />
@@ -27,11 +28,14 @@
     <ClInclude Include="Header\PrototypeEditerLevel.h" />
     <ClInclude Include="Header\PrototypeEditerWorld.h" />
     <ClInclude Include="Header\TestActor.h" />
+    <ClInclude Include="Src\GameManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\BGMManager.cpp" />
     <ClCompile Include="Src\ClientEntry.cpp" />
     <ClCompile Include="Src\ClientLevel.cpp" />
     <ClCompile Include="Src\ClientWorld.cpp" />
+    <ClCompile Include="Src\GameManager.cpp" />
     <ClCompile Include="Src\NoteEditer.cpp" />
     <ClCompile Include="Src\NoteManager.cpp" />
     <ClCompile Include="Src\PrototypeEditerLevel.cpp" />

@@ -23,6 +23,12 @@ inline bool convertFromString<bool>(const std::string& str)
 }
 
 template<>
+inline long double convertFromString<long double>(const std::string& str)
+{
+	return std::stold(str);
+}
+
+template<>
 inline std::string convertFromString<std::string>(const std::string& str) 
 {
     return str;
