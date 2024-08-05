@@ -2,6 +2,7 @@
 #include <MainEntry.h>
 #include <System.h>
 #include <SimpleIniLoader.h>
+#include <WinUtility.h>
 
 namespace fs = std::filesystem;
 
@@ -74,6 +75,7 @@ void Engine::MainEntry::Initialize(GameSettings gameSettings)
 		gameSettings.hInstance,
 		NULL
 	);
+	WinUtility::WindowToScrrenCenter(gameSettings.hWnd);
 
 	_pSystem = System::Create(std::move(gameSettings));
 }
