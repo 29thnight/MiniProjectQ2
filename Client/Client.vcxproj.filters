@@ -18,6 +18,12 @@
     <Filter Include="NoteManager">
       <UniqueIdentifier>{5b67b8d7-9f54-4015-af1a-252dfe86fcd5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameManager">
+      <UniqueIdentifier>{67e382af-74a3-4126-9278-32a9f8a2af40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BGMManager">
+      <UniqueIdentifier>{64937deb-723d-4904-bee3-0b74bd53d04f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\ClientEntry.h">
@@ -41,6 +47,12 @@
     <ClInclude Include="Header\NoteManager.h">
       <Filter>NoteManager</Filter>
     </ClInclude>
+    <ClInclude Include="Header\BGMManager.h">
+      <Filter>BGMManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameManager.h">
+      <Filter>GameManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\ClientEntry.cpp">
@@ -63,6 +75,12 @@
     </ClCompile>
     <ClCompile Include="Src\NoteManager.cpp">
       <Filter>NoteManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\BGMManager.cpp">
+      <Filter>BGMManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameManager.cpp">
+      <Filter>GameManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

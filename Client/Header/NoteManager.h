@@ -9,12 +9,19 @@ namespace Engine
 
 namespace Client
 {
+	class Note;
 	class NoteManager : public Engine::Actor
 	{
 		using Base = Engine::Actor;
 	private:
 		NoteManager() = default;
 		virtual ~NoteManager() = default;
+	public:
+		struct NoteSpwanTable
+		{
+			int			_noteIndex{};
+			long double _noteTime{};
+		};
 
 	public:
 		virtual void BeginPlay() override;
@@ -39,6 +46,8 @@ namespace Client
 		void Destroy() override { Actor::Destroy(); }
 
 	private:
-		Engine::InputComponent* _pInputComponent{ nullptr };
+		Engine::InputComponent*		_pInputComponent{ nullptr };
+		std::vector<Note*>			_noteObjectPool;
+		std::vector<NoteSpwanTable> _noteSpawnData;
 	};
 }

@@ -2,14 +2,25 @@
 #include <SceneComponent.h>
 #include <SoundManager.h>
 #include <InputComponent.h>
+#include <CsvLoader.h>
+#include <World.h>
 
 using namespace Engine;
 
 void Client::NoteManager::BeginPlay()
 {
 	Base::BeginPlay();
-	Sound->PlaySound("Mario64_Main_Theme", CHANNEL_BGM, LOOP_ONCE);
+	Sound->PlaySound("Mario64_Main_Theme", CHANNEL_BGM, NOT_LOOP);
 	std::cout << Sound->GetLength(CHANNEL_BGM) << std::endl;
+
+	CSVReader<int, long double> reader("Assets/test.csv");
+	reader.forEach([&](int noteIndex, long double noteTime)
+		{
+			NoteSpwanTable table;
+			table._noteIndex = noteIndex;
+			table._noteTime = noteTime;
+			_noteSpawnData.push_back(table);
+		});
 
 	_pInputComponent = AddComponent<InputComponent>("InputComponent");
 

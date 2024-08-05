@@ -86,7 +86,7 @@ enum MouseState
 enum SoundLoop
 {
 	LOOP_INFINITE = -1,
-	LOOP_ONCE = 0
+	NOT_LOOP = 0
 };
 
 enum SoundChannel
