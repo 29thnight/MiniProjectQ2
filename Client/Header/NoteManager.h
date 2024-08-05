@@ -39,6 +39,6 @@ namespace Client
 		void Destroy() override { Actor::Destroy(); }
 
 	private:
-
+		Engine::InputComponent* _pInputComponent{ nullptr };
 	};
 }

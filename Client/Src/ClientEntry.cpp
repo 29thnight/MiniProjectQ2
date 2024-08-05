@@ -20,6 +20,6 @@ DEFINE_WWINMAIN_RELEASE("GameSettings.ini");
 
 void Client::ClientEntry::CreateWorld()
 {
-	_pWorld = ClientWorld::Create();
-	//_pWorld = PrototypeEditerWorld::Create();
+	//_pWorld = ClientWorld::Create();
+	_pWorld = PrototypeEditerWorld::Create();
 }

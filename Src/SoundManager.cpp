@@ -16,6 +16,7 @@ bool Engine::SoundManager::Initialize(int maxChannels)
 	_channelGroups.resize(maxChannels);
 	_fadeSounds.resize(maxChannels);
 	_pSystem->getMasterChannelGroup(&_pMasterChannelGroup);
+	_pSystem->getSoftwareFormat(&_pSamplateInt, nullptr, nullptr);
 
 	for (int i = 0; i < maxChannels; ++i)
 	{
@@ -189,32 +190,35 @@ void Engine::SoundManager::LoopExit(int channel, int loopCount)
 	pChannel->setLoopCount(loopCount);
 }
 
-_uint Engine::SoundManager::GetPosition(int channel)
+long double Engine::SoundManager::GetPosition(int channel)
 {
 	if (channel < 0 || channel >= _maxChannels) 
 	{
         return 0;  // 잘못된 채널 번호 처리
     }
 
+	long double result = 0;
     _uint position = 0;
     FMOD::Channel* pChannel = nullptr;
     _channelGroups[channel]->getChannel(0, &pChannel);
 
     if (pChannel)
 	{
-        pChannel->getPosition(&position, FMOD_TIMEUNIT_MS);
-    }
+        pChannel->getPosition(&position, FMOD_TIMEUNIT_PCM);
+		result = static_cast<long double>(position / _pSamplateInt * 1e9);
+	}
 
-    return position;
+    return result;
 }
 
-_uint Engine::SoundManager::GetLength(int channel)
+long double Engine::SoundManager::GetLength(int channel)
 {
 	if (channel < 0 || channel >= _maxChannels)
 	{
 		return 0;  // 잘못된 채널 번호 처리
 	}
 
+	long double result = 0;
 	_uint length = 0;
 	FMOD::Channel* pChannel = nullptr;
 	FMOD::Sound* pSound = nullptr;
@@ -223,10 +227,11 @@ _uint Engine::SoundManager::GetLength(int channel)
 
 	if (pSound)
 	{
-		pSound->getLength(&length, FMOD_TIMEUNIT_MS);
+		pSound->getLength(&length, FMOD_TIMEUNIT_PCM);
+		result = static_cast<long double>(length / _pSamplateInt * 1e9);
 	}
 
-	return length;
+	return result;
 }
 
 void Engine::SoundManager::Destroy()

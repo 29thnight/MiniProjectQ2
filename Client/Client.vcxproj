@@ -22,6 +22,9 @@
     <ClInclude Include="Header\ClientEntry.h" />
     <ClInclude Include="Header\ClientLevel.h" />
     <ClInclude Include="Header\ClientWorld.h" />
+    <ClInclude Include="Header\NoteManager.h" />
+    <ClInclude Include="Header\PrototypeEditerLevel.h" />
+    <ClInclude Include="Header\PrototypeEditerWorld.h" />
     <ClInclude Include="Header\TestActor.h" />
   </ItemGroup>
   <ItemGroup>

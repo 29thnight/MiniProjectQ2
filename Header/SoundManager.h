@@ -40,8 +40,8 @@ namespace Engine
 		void SetPan(int channel, float pan);
 		void LoopEnter(int channel, _uint startPosition, _uint endPosition);
 		void LoopExit(int channel, int loopCount);
-		_uint GetPosition(int channel);
-		_uint GetLength(int channel);
+		long double GetPosition(int channel);
+		long double GetLength(int channel);
 
 	public:
 		virtual void Destroy() override;
@@ -58,6 +58,7 @@ namespace Engine
 		std::unordered_map<std::string, FMOD::Sound*>	_sounds;
 		std::vector<FadeSound>							_fadeSounds;
 		int												_maxChannels{ 0 };
+		int												_pSamplateInt{ 0 };
 	};
 }
 
